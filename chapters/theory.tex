@@ -84,6 +84,23 @@ From there the user can modify the general details of the device if wanted.
 If this is done the new information is saved by pressing the update device button.
 When the details are updated the page layout goes to Details tab where the modified data can be seen.
 
+Keys (\gls{otaa}) layout is the one that was opened when the first step of the creation was done.
+This text box has two fields, Application key and Gen application key.
+Application key is a mandatory field and Gen Application key is optional.
+The Application key is got when the Python main.py file from the device is ran.
+Gen Application key is only needed when the device implements remote multicast setup specification or \gls{fuota}.
+As neither of those features are not used in the implementation that field is left empty.
+
+Activation layout provides a textbox with five fields when the device has been connected to the server / activated.
+First field shows the Device address which is specified when the device has joined a network.
+Network session key and Application session key are masked.
+The concealed information can be seen by pressing the key icons next to the next fields.
+The other two fields show the Uplink frame-counter and Downlink frame-counter information.
+
+Device data layout sends uplink information from the device when it is connected in 5 second intervals.
+If it is not activated the box instead shows a text "This device has not been (yet) activated".
+
+
 \begin{figure}[ht]
   \centering
   \AltText{Second layout form for adding a new device to Chirpstack server's application}{\includegraphics[width=\textwidth]{illustration/Chirpstack_new_device_2.png}}
@@ -92,5 +109,7 @@ When the details are updated the page layout goes to Details tab where the modif
 \end{figure}
 
 Device can only be added once to the Chirpstack server and if it is tried to add another time to either the same application it already exists on or to a new one the process fails with an error message.
+
+%\cite{chirpstack:devices}
 
 \clearpage %force the next chapter to start on a new page. Keep that as the last line of your chapter!
