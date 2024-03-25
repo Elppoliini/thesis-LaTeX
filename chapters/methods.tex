@@ -41,15 +41,24 @@ The following subsections will provide explanations of what libraries are used i
 \subsection{Standard Library}
 As mentioned in the beginning of this section, Robot Framework contains Standard Library that consist of ten libraries that can be imported to the projects with the exception of BuiltIn library that is imported by default.
 These libraries include a wide spectrum of the most common tasks and verifications related to things such as date and time manipulations, collection handling, user inputs, operation system related tasks, process management and many others.
-This project contains used two of those libraries, the BuiltIn library and the Dialogs libary.
-Further information about them is told in the next subsections.
+This project utilizes two of those libraries, the BuiltIn library and the Dialogs library.
+Further information about them is explained in the next subsections.
 \subsubsection{BuiltIn}
-As mentioned previously BuiltIn is the only Standard Library in Robot Framework that is imported automatically. It provides keywords that are the most generic ones and therefore needed often.
+As mentioned previously BuiltIn is the only Standard Library in Robot Framework that is imported automatically.
+It provides keywords that are the most generic ones and therefore needed often.
 \subsubsection{Dialogs}
+Dialogs is part of the Standard Library and provides keywords to interact with the user. The keywords can be used to things such as to take user input or pause the execution until the user 
 \subsection{Browser Library}
+Browser library is a Robot Framework library that delivers keywords for browser automation.
+It uses Playwright framework to automate Chromium, Firefox and webkit.
+The library offers a wide range of keywords, including getters for fetching information from various elements, classes, texts, and \gls{url}s.
+Additionally, it includes keywords for waiting until certain elements are loaded or become visible before proceeding with the execution of subsequent keywords
 \subsection{RPA Framework}
 \subsubsection{RPA.Selenium.Browser}
 \subsubsection{RPA.Excel.Files}
 
 \cite{robot-framework:standard-library}
+\cite{robot_framework:builtin_library}
+\cite{robot_framework:dialogs_library}
+\cite{robot_framework:browser_library}
 \clearpage %force the next chapter to start on a new page. Keep that as the last line of your chapter!
