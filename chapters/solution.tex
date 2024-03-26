@@ -2,19 +2,44 @@
 
 \chapter{Implementation} \label{ch:impl}
 This chapter provides a detailed explanation of how the project was implemented from the environment set-ups to the automation and execution of that automation, outlining the practises, techniques, and steps taken to bring the project to completion.
-Metropolia University of Applied Sciences provided a LORIX One gateway, micro\gls{sd} card with ChirpStack Gateway OS image installed to it, a spare micro\gls{sd} card and a \gls{lora} end device that is used in the courses the project is done for.
+Metropolia University of Applied Sciences provided a LORIX One gateway, micro\gls{sd} card with ChirpStack Gateway \gls{os} image installed to it, a spare micro\gls{sd} card and a \gls{lora} end device that is used in the courses the project is done for.
 
 \section{Setting up LORIX One}
-The LORIX One gateway is is used to establish the connection between the Chirpstack and the \gls{lora} devices and the gateway came together with an micro\gls{sd} card where the ChirpStack Gateway OS image was installed already.
+The LORIX One gateway is used to establish the connection between the Chirpstack and the \gls{lora} devices and the gateway came together with an micro\gls{sd} card where the ChirpStack Gateway \gls{os} image was installed already.
 The LORIX One has a slot for the micro\gls{sd} card inside where it was put.
 After that the LORIX One was connected to a router to get ethernet access and to an outlet to get power.
+When the gateway is powered it starts the boot immediately meaning in this case the ChirpStack Gateway \gls{os} image.
 
-\section{}
+\section{Setting up Chirpstack}
+When the connection is stable in the LORIX One gateway and its status led blinks on a heartbeat mode the \gls{os} installation can be started.
+The \gls{os} is booted each time it is connected to a power supply and the user needs to login using \gls{ssh}.
+The login can be done using ssh command as seen in figure on a command prompt.
+
+CODE FIGURE ssh user@lorixip
+
+When the user has logged in successfully a message seen in figure is shown.
+
+FIGURE OF CHIRPSTACK.IO MESSAGE
+
+As mentioned earlier the micro\gls{sd} card was provided with the Chirpstack \gls{os} and also with the needed credentials to log in.
+The data the card contained the latest settings that Metropolia University of Applied Sciences uses and no new configurations were needed.
+The command prompt was closed with exit command.
+
+
+
+
 \section{Creating Excel sheet for the end devices}
 \section{Creating automation}
 \subsection{variables.py}
-\subsection{Test suites}
+Variables.py is a python file where all the variables in are stored to easily modify them if needed from one place.
+In this project the file is imported to the test suites which uses those variables for setting up the test suite for log in.
+
+\subsection{Suite Setup and Suite Teardown}
+In this project Suite setup was selected to bu utilized to improve unnecessary repeat of steps to be taken.
+The suite setup was utilized to a suite initalization file called \_\_init\_\_.robot file which is run once and before any
+
 \subsection{Process automation}
 
-
+\cite{chirpstack:getting_started}
+\cite{robot_framwework_user_guide:suite_setup_and_teardown}
 \clearpage %force the next chapter to start on a new page. Keep that as the last line of your chapter!
