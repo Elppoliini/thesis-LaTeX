@@ -26,8 +26,10 @@ CHECK  (\cite{}) https://lora-developers.semtech.com/documentation/tech-papers-a
 LORIX One is a LoRaWAN gateway developed by Wifx.
 The operating system that LORIX One uses is called LORIX OS and it is created particularly for LoRaWAN gateways.
 In this project LORIX One is used to transmit data between the \gls{iot} devices and the Chirpstack Network Server.
+
 \section{Chirpstack}
 Chirpstack is a LoRaWAN network server. It is an open-source platform, which means the source code is freely accessible, enabling contributions and modifications from individuals. It allows anyone to engage in its development. LORIX One is connected to it and this way the end devices can be added to the server.
+
 \section{Robot Framework}
 Robot Framework is an open-source framework supported by Robot Framework Foundation and can be used for test automation and \gls{rpa}.
 Robot Framework uses keywords that are in a human-readable format making its syntax easily accessible for technical and non-technical users.
@@ -36,7 +38,23 @@ In data-driven approach the logic is separated from the data which allows to use
 Robot Framework contains standard libraries from which BuiltIn is the most used one and imported automatically.
 The features can be extended by libraries that can be implemented in multiple different programming languages.
 The project is implemented by using the Robot Framework for its broad possibilities to be developed and maintained further if needed, the possibilities of cross platform development and for its rich ecosystem, that eases the previous reasons by providing active support from the community, forums and other resources.
-The following subsections will provide explanations of what libraries are used in the implementation of this project.
+
+This section will provide understanding of what test suites and libraries are and and how they can be used in the implementation of this project.
+
+\subsection{Test suites}
+A test case file that contains the automation tasks creates a test suite. Usually a test suite consists of ten or fewer tasks and the directory can have multiple test suites.
+Automation of different processes can include similar pre-steps or afterwork that needs to be done every time a test suite is executed.
+To make things more efficient a user can create Suite setup and teardown keywords that assist by doing the repeatedly needed steps.
+These keywords have also the ability to accept arguments as needed.
+Suite setup and teardown are declared in the suite initialization file.
+
+A Suite setup is a keyword that is executed before any tasks are run.
+If the setup fails, all the test suites that utilize it are directly assigned to fail status without being executed.
+Suite setup offers possibilities to check preconditions that must be fulfilled before the automation tasks are being performed.
+
+Similarly to a Suite setup, a Suite teardown is performed after the automation tasks are executed.
+It is usually performed to clean up, and with a difference to a suite, if the suite setup fails the teardown is still being executed.
+If the suite teardown fails, the test suites are marked as fail status regardless of their original status after execution.
 
 \subsection{Standard Library}
 As mentioned in the beginning of this section, Robot Framework contains Standard Library that consist of ten libraries that can be imported to the projects with the exception of BuiltIn library that is imported by default.
