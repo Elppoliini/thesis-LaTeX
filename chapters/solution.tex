@@ -28,8 +28,30 @@ The command prompt was closed with exit command.
 
 
 
-\section{Creating Excel sheet for the end devices}
+\section{Creating Excel file for the end devices}
+Excel file was selected for storing the information about the application name and it's details and all the devices that it should have in it.
+The decision to utilize an Excel file was selected due to a accessibility of a pre-existing library called RPA.Excel.Files in Robot Framework.
+
+The excel file layout was desinged so that each sheet the file includes would be named after the application name that the sheet contains.
+
+When a sheet is opened it has 3 headers reagarding the application on the first row.
+Those headers are called Application name, Application description and Service profile.
+On the second row under that the columns have that information accordingly so that the data can be fetched by using the headers.
+
+Row 4 contains headers for adding a \gls{lora} device to the application.
+Those headers are called Device name, Device description, Device EUI, Device-profile and Application key.
+Under those headers the user adds the device information correspondingly.
+
+The Excel file filling is fully manual and left to the educator to fill but for this project two mock up sheets were created to test that the functionality works correctly.
 \section{Creating automation}
+This section will give an overview of how the automation was created for the project.
+The automation was done using Robot framework in Visual Studio Code source code editor as it provides the possibility to implement Robot Framework and Robocorp extensions that were used.
+
+First step to start the automation was to build up the project structure for the ease of maintenance.
+The project directory contains two main folders called automation and resources alongside with .gitignore file and requirements.txt file.
+Automation folder contains the two robot files used for the automation, \_\_init\_\_.robot and automation.robot.
+Resources folder is used in this project to store the variables used in the project.
+All the required packages and libraries are included to the requirements.txt file.
 \subsection{variables.py}
 Variables.py is a python file where all the variables in are stored to easily modify them if needed from one place.
 In this project the file is imported to the test suites which uses those variables for setting up the test suite for log in.
@@ -39,6 +61,10 @@ In this project Suite setup was selected to bu utilized to improve unnecessary r
 The suite setup was utilized to a suite initalization file called \_\_init\_\_.robot file which is run once and before any
 
 \subsection{Process automation}
+The automation.robot file consist of tasks that were used for automating the creation of an application and of adding devices to that application.
+
+The file has two tasks, Create Application and Add devices.
+Add devices task requires application name as an argument.
 
 \cite{chirpstack:getting_started}
 \cite{robot_framwework_user_guide:suite_setup_and_teardown}
