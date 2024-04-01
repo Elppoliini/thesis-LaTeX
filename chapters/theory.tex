@@ -4,7 +4,8 @@
 
 This project is developed on top of another students final year project \cite{theseus:gere-zoltan} to automate the tasks that are required in the beginning of each course that uses their implementation.
 Their solution provided the \gls{lora} end device, ChirpStack network server and LORIX One Gateway as starting tools.
-The following section is a walk-through for the use of the ChirpStack server without the implementation of automation this project provides.
+The following section is a walk-through for the use of the ChirpStack server's web-interface without the implementation of automation this project provides.
+The starting point of this walk-through occurs after the server has been set up and configured.
 
 The end devices that the students use are added to an Application in ChirpStack server.
 The server has clear \gls{ui} which is opened to the Applications page when the user logs in as seen in figure \ref{fig:ChirpStack_application_list}.
@@ -62,10 +63,12 @@ Codec tab provides optional drop-down list for selecting Payload codec.
 
 Gateways
 
-Applications
+Multicast-groups layout provides a list view of multicast-groups that are generated for the organization. This feature is not used.
 
-Multicast-groups
-
+Applications layout is where the user ends up when they log in.
+The page includes a list view of the added applications on the organization that is chosen on the sidebar.
+Each item of the list is shown with its ID, name, service-profile and description.
+Device name is a hyperlink that leads to the list of devices that are added to the application and the service-profile is a hyperlink, that leads to the service-profile's modifying page.
 From the Applications layout the user can either choose an existing application or create new one.
 Normally when a new course is organized the educator creates a new application for that class and all the related and used \gls{lora} end devices are added to that.
 

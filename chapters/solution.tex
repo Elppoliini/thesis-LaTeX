@@ -7,7 +7,8 @@ Metropolia University of Applied Sciences provided a LORIX One gateway, micro\gl
 The source code for the implementation can be found from the appendix.
 
 \section{Setting up LORIX One}
-The LORIX One gateway is used to establish the connection between the Chirpstack and the \gls{lora} devices and the gateway came together with an micro\gls{sd} card where the ChirpStack Gateway \gls{os} image was installed already.
+The LORIX One gateway is used to establish the connection between the Chirpstack Network Server and the \gls{lora} devices.
+The gateway came together with an micro\gls{sd} card where the ChirpStack Gateway \gls{os} image was installed already.
 The LORIX One has a slot for the micro\gls{sd} card inside where it was put.
 After that the LORIX One was connected to a router to get ethernet access and to an outlet to get power.
 When the gateway is powered it starts the boot immediately meaning in this case the ChirpStack Gateway \gls{os} image.
@@ -16,25 +17,24 @@ When the gateway is powered it starts the boot immediately meaning in this case 
 When the connection is stable in the LORIX One gateway and its status led blinks on a heartbeat mode the \gls{os} installation can be started.
 The \gls{os} is booted each time it is connected to a power supply and the user needs to login using \gls{ssh}.
 The login can be done using ssh command as seen in figure on a command prompt.
+The command requires the username and the \gls{ip} address for the server as seen in FIGURE REF.
+Username was provided from the school and the \gls{ip} address was verified from the router's connected devices.
 
 CODE FIGURE ssh user@lorixip
 
 When the user has logged in successfully a message seen in figure is shown.
 
-FIGURE OF CHIRPSTACK.IO MESSAGE
+FIGURE OF CHIRPSTACK.IO MESSAGE FROM COMMAND PROMPT
 
 As mentioned earlier the micro\gls{sd} card was provided with the Chirpstack \gls{os} and also with the needed credentials to log in.
 The data the card contained the latest settings that Metropolia University of Applied Sciences uses and no new configurations were needed.
 The command prompt was closed with exit command.
 
-
-
-
 \section{Creating Excel file for the end devices}
 Excel file was selected for storing the information about the application name and it's details and all the devices that it should have in it.
 The decision to utilize an Excel file was selected due to a accessibility of a pre-existing library called RPA.Excel.Files in Robot Framework.
 
-The excel file layout was desinged so that each sheet the file includes would be named after the application name that the sheet contains.
+The excel file layout was designed so that each sheet the file includes would be named after the application name that the sheet contains.
 
 When a sheet is opened it has 3 headers reagarding the application on the first row.
 Those headers are called Application name, Application description and Service profile.
@@ -44,7 +44,8 @@ Row 4 contains headers for adding a \gls{lora} device to the application.
 Those headers are called Device name, Device description, Device EUI, Device-profile and Application key.
 Under those headers the user adds the device information correspondingly.
 
-The Excel file filling is fully manual and left to the educator to fill but for this project two mock up sheets were created to test that the functionality works correctly.
+The Excel file filling is fully manual and left to the educator to fill, but for this project two mock up sheets were created to test that the functionality works correctly.
+
 \section{Creating automation}
 This section will give an overview of how the automation was created for the project.
 The automation was done using Robot framework in Visual Studio Code source code editor as it provides the possibility to implement Robot Framework and Robocorp extensions that were used.
@@ -54,18 +55,40 @@ The project directory contains two main folders called automation and resources 
 Automation folder contains the two robot files used for the automation, \_\_init\_\_.robot and automation.robot.
 Resources folder is used in this project to store the variables used in the project.
 All the required packages and libraries are included to the requirements.txt file.
+
 \subsection{variables.py}
 Variables.py is a python file where all the variables in are stored to easily modify them if needed from one place.
 In this project the file is imported to the test suites which uses those variables for setting up the test suite for log in.
 
+The variables.py file includes a list of variables that are used mostly in the suite setup but also in the process automation.
+
+A mockup version of the file is provided in the appendix to see what kind of formats were used.
+
 \subsection{Suite Setup and Suite Teardown}
-In this project Suite setup was selected to bu utilized to improve unnecessary repeat of steps to be taken.
-The suite setup was utilized to a suite initalization file called \_\_init\_\_.robot file which is run once and before any
+In this project Suite setup was selected to be utilized to improve unnecessary repeat of steps to be taken and to verify the pre-steps are functioning correctly before the tasks are run.
+The suite setup was utilized to a suite initalization file called \_\_init\_\_.robot file which is run once and before automation folder's files are executed.
+
+The suite setup task that was implemented is called Login to ChirpStack.
+The task opens the browser with the browser that was specified in the variables.py file.
+For running the automation with a window where the user can see the progress while it runs the headless argument was set to false.
+When the browser is opened the next keyword takes the ChirpStack server's \gls{ip} address for the login page that was initialized in the variables.py file.
+The code then proceeds to fill the text fields for username and password also with values that were initialized in the variables.py file.
+When the login credentials have been filled the task clicks the login button, that is identified by its css value.
+The task then uses keywords to save the updated page's \gls{url} to a variable and then compares it to the expected \gls{url}.
+
+When the automation file is executed the logs show if the setup passed alongside with the tasks.
+If the suite setup fails the tasks will also be set to fail status.
+
+SUITE TEARDOWN
 
 \subsection{Process automation}
 The automation.robot file consist of tasks that were used for automating the creation of an application and of adding devices to that application.
 
 The file has two tasks, Create Application and Add devices.
+For utilizing these tasks 3 Robot Framework libraries were imported in the settings section: Browser, Dialogs and RPA.Excel.Files.
+
+Create Application task
+
 Add devices task requires application name as an argument.
 
 \cite{chirpstack:getting_started}
