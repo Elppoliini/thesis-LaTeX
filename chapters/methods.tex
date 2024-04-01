@@ -15,7 +15,7 @@ This scalability proves vital for \gls{iot} implementations that collect data fr
 The adaptability to scale makes LoRaWAN well-suited for the dynamic and evolving nature of IoT deployments.
 In this project, LoRaWAN technology plays a significant role in wireless connectivity.
 The implementation involves LoRa end devices utilizing Over-The-Air Activation (OTAA) to establish connections with the LORIX One gateway.
-Functioning as a bridge, the gateway connects these devices to the Chirpstack LoRaWAN network server.
+Functioning as a bridge, the gateway connects these devices to the Chirpstack LoRaWAN network server stack.
 At the beginning of each course, the teacher initiates the creation of a new application on the server and the addition of devices to that application.
 This manual process, characterized by repetition, is targeted for automation to minimize the time commitment from educators.
 The integration of LoRaWAN not only optimizes connectivity in widely distributed educational settings but also capitalizes on its long-range capabilities, low data rate support, and scalability, making it an efficient solution for IoT applications within the project.
@@ -25,10 +25,46 @@ CHECK  (\cite{}) https://lora-developers.semtech.com/documentation/tech-papers-a
 \section{LORIX One}
 LORIX One is a LoRaWAN gateway developed by Wifx.
 The operating system that LORIX One uses is called LORIX OS and it is created particularly for LoRaWAN gateways.
-In this project LORIX One is used to transmit data between the \gls{iot} devices and the Chirpstack Network Server.
+In this project LORIX One is used as a connector to transmit data between the \gls{iot} devices and the Chirpstack Network Server bidirectionally.
+This data
 
 \section{Chirpstack}
-Chirpstack is a LoRaWAN network server. It is an open-source platform, which means the source code is freely accessible, enabling contributions and modifications from individuals. It allows anyone to engage in its development. LORIX One is connected to it and this way the end devices can be added to the server.
+ChirpStack is a LoRaWAN network server stack. It is an open-source platform, which means the source code is freely accessible, enabling contributions and modifications from individuals. It allows anyone to engage in its development.
+The course runs the ChirpStack V3 with the limitation that the LORIX One's \gls{os} does not support the latest version (V4).
+The ChirpStack server's stack consists of 5 sections: ChirpStack Gateway Bridge, ChirpStack Network server, ChirpStack Application Server, ChirpStack Concentratord and ChirpStack Gateway \gls{os}.
+
+\subsection{ChirpStack Gateway Bridge}
+ChirpStack Gateway Bridge enables communication between the ChirpStack Network Server and \gls{lorawan} gateways.
+The gateway that is used in this project is the LORIX One.
+The \gls{lora} devices send \gls{lorawan} packets to the gateway, which forwards them to the ChirpStack Network Server using the \gls{lora} Packet Forwarder.
+The Chirpstack Gateway Bridge is given with 3 Packet Forwarder backends : ChirpStack Concentratord, Semtech UDP Packet Forwarder and Basic Station Packet Forwarder.
+These backends convert protocols into a common data format for the server.
+Additionally the Gateway Bridge provides 3 integrations for \gls{mqtt} protocols: a generic \gls{mqtt} broker, that can be used as a central hub for handling the \gls{mqtt} communication in a single network; the GCP Cloud IoT Core MQTT Bridge; and Azure IoT Hub MQTT Bridge.
+These \gls{mqtt} bridges enable communication to transmit messages and data between separate \gls{mqtt} networks or brokers alongside with other systems and platforms such as the \gls{lora} devices that are connected to the ChirpStack Network Server.
+
+\cite{chirpstack:gateway_bridge}
+
+\subsection{ChirpStack Network server}
+ChirpStack Network Server receives frames from the LORIX One gateway and removes any dublicates before processing them.
+The Network server handles the authentication, \gls{lorawan} \gls{mac}-layer operations, together with the \gls{mac}-commands, communication with the ChirpStack Application server and scheduling of the downlink frames sent to the \gls{lora} devices.
+
+\cite{chirpstack:network_server}
+
+\subsection{ChirpStack Application Server}
+
+ChirpStack Application Server handles the join-requests and the process of handling and encrypting application payloads.
+It provides a web-interface and for connection with external services a \gls{grpc} and \gls{rest}ful \gls{api}.
+The web-interface and \gls{api} provide thev ability to manage users, organizations, applications and devices.
+The data from \gls{lora} devices can be sent and/or received over both \gls{mqtt}, and \gls{http} protocols, and by being  written directly into Influx\gls{db} system.
+The ChirpStack Application Server provides a feature that allows to test gateway network coverage by pinging, if the network contains multiple gateways.
+It also offers live possibilities for frame- and event-logging.
+
+\cite{chirpstack:application_server}
+
+\subsection{ChirpStack Concentratord}
+
+\subsection{ChirpStack Gateway OS}
+
 
 \section{Robot Framework}
 Robot Framework is an open-source framework supported by Robot Framework Foundation and can be used for test automation and \gls{rpa}.
