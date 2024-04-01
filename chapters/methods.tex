@@ -71,6 +71,10 @@ Robot Framework is an open-source framework supported by Robot Framework Foundat
 Robot Framework uses keywords that are in a human-readable format making its syntax easily accessible for technical and non-technical users.
 The framework supports both data-driven and keyword-driven approaches for the implementations.
 In data-driven approach the logic is separated from the data which allows to use the logic easily with multiple different inputs or data sets and keyword-driven approach focuses on creating keywords that give summary of the actions that the robot performs and which makes the maintainability, and readability more straightforward.
+A Robot framework file's structure can contain 6 sections for the data: settings, variables, test cases, tasks, keywords and comments.
+The sections are recognized by their header row that has a *** Settings *** format, which header is case-insensitive. The header can be surrounded with spaces but it is not necessary and the asterisk characters amount can also be different, but the minimum requirement is to have at least one asterisk in the beginning.
+The headers can also contain other data besides the section header, but that data needs to be separated with the data format dependent separator.
+That kind of extra headers are usually used for documenting.
 Robot Framework contains standard libraries from which BuiltIn is the most used one and imported automatically.
 The features can be extended by libraries that can be implemented in multiple different programming languages.
 
