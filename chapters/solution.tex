@@ -44,6 +44,10 @@ Row 4 contains headers for adding a \gls{lora} device to the application.
 Those headers are called Device name, Device description, Device EUI, Device-profile and Application key.
 Under those headers the user adds the device information correspondingly.
 
+The Device EUI consists of 16 digits and/ or characters that can be given with 3 different forms, all written together, or with spaces, or colons as separators.
+The parsing of colons and spaces is handled by ChirpStack.
+The restrictions for the EUI code are, that it can not include special characters in any form, as they are ignored by the ChirpStack, when the EUI is given to the corresponding field and a lack of correct amount of accepted digits and/ or characters results to an error when the device is tried to be added.
+
 The Excel file filling is fully manual and left to the educator to fill, but for this project two mock up sheets were created to test that the functionality works correctly.
 
 \section{Creating automation}
@@ -66,7 +70,7 @@ A mockup version of the file is provided in the appendix to see what kind of for
 
 \subsection{Suite Setup and Suite Teardown}
 In this project Suite setup was selected to be utilized to improve unnecessary repeat of steps to be taken and to verify the pre-steps are functioning correctly before the tasks are run.
-The suite setup was utilized to a suite initalization file called \_\_init\_\_.robot file which is run once and before automation folder's files are executed.
+The suite setup was utilized to a suite initialization file called \_\_init\_\_.robot file which is run once and before automation folder's files are executed.
 
 The suite setup task that was implemented is called Login to ChirpStack.
 The task opens the browser with the browser that was specified in the variables.py file.
@@ -84,12 +88,39 @@ SUITE TEARDOWN
 \subsection{Process automation}
 The automation.robot file consist of tasks that were used for automating the creation of an application and of adding devices to that application.
 
-The file has two tasks, Create Application and Add devices.
+The file has two tasks, Create Application and Add devices. VERIFY FROM SOURCE CODE
 For utilizing these tasks 3 Robot Framework libraries were imported in the settings section: Browser, Dialogs and RPA.Excel.Files.
 
-Create Application task
+Create Application KEYWORD is the first one to be run after the suite setup from the automation.robot file, when it is being executed.
+The KEYWORD clicks the identified create button on top of the application page's layout.
+After that it opens the Excel file with the name that was provided in the variables.py file.
+When the Excel workbook is open, the user is asked for the correct sheet, which is named after the desired application. VERIFY SOURCE CODE IS ACCURATE
+The worksheet is then read to a table format into a variable.
+The table is then used to save the application name to a variable.
+That name is then typed to the correct text field called Application name.
+Next keyword saves the application description to a variable and similarly that is then added to the Application description text field on the web-interface.
+Lastly the service-profile is fetched to a new variable and then service-profile's dropdown list menu item is clicked on the page and when the list opens, the corresponding service-profile is selected by clicking it.
+When all the required information is filled the task clicks the Create application button and closes the Excel file.
 
+When the Create application task is run the execution moves to the Add devices task.
 Add devices task requires application name as an argument.
+It also uses a keyword called Add One Device, which takes a device as an argument. That keywords functioning is described after this task.
+Add devices task starts from the web-interface's Applications layout which is visible when the user is logged in. 
+The task compares if the application name given in the argument is found from the list and opens it, and if it is not, it starts to create a new one with the Create Application KEYWORD.
+When the application is open the Excel file is opened from the worksheet that has a corresponding name to the application.
+The work sheet is then saved to a variable as a table of the devices from the worksheet.
+The devices that are listed to the worksheet start from the 4th row and therefor the table's first index is set there.
+The table variable is then logged so the list can be verified when the automation.robot file's execution ends and the logs can be checked.
+After that the Excel file is closed and a for loop starts to run.
+The for loop goes through all the devices on the table and adds them individually with the Add One Device keyword.
+
+Add One Device key was created to cut the keywords that the task requires to smaller sections that increases the readability and the detection of possible issues.
+As mentioned earlier the Add One Device requires a device variable as a argument.
+The keyword starts running on the web-interface's Application layout that is seen when a selected application is open.
+That is the result view when the Create Application task is successfully run.
+Add One Device keyword  clicks the Create button from the web-interface and proceeds to fill Device name, Device description and Device EUI fields with values that are got from the device variable.
+After that, the Create device button is clicked and the keyword waits that Wait for Elements State keyword to find the Application key field and fills that with corresponding value from device variable and then again waits until Set device keys button is visible until it is, and can be clicked.
+
 
 \cite{chirpstack:getting_started}
 \cite{robot_framwework_user_guide:suite_setup_and_teardown}
