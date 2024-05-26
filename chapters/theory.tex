@@ -33,39 +33,44 @@ When creating a new server, users must provide a server name and specify the ser
 Additionally, users have the option to include additional features, such as enabling gateway discovery and providing \gls{ca} and \gls{tls} certificates, along with \gls{tls} keys for both ChirpStack Application Server to ChirpStack Network Server connection and vice versa, in the network server details.
 
 \section{Gateway-profiles}
-Gateway-profiles contains the added gateway-profiles.
-To create a new one, a user presses the Add button and fills the mandatory fields of the enabled channels, which can be separated with commas, and by choosing a network-server from a drop-down list.
-The gateway-profiles are not used in the courses the schools use the ChirpStack with, and the feature is also to be removed in ChirpStack's next major release, which is yet to have a release date.
+Gateway-profiles contain the added gateway-profiles.
+To create a new one, a user presses the Add button and fills in the mandatory fields of the enabled channels, which can be separated with commas, and by choosing a network-server from a drop-down list.
+The gateway-profiles are not used in the courses the school use the ChirpStack with, and the feature is also to be removed in ChirpStack's next major release, which is yet to have a release date.
 
 \section{Organizations}
-Organizations layout consists of the inserted organizations to the ChirpStack.
-The list view provides information of the organizations name, display name and it's possibility of having gateways.
-Those details are also to be filled if the user adds new organization from the "Create"--button.
+The Organizations layout consists of the inserted organizations to the ChirpStack.
+The list view provides information of the organizations' name, display name and its possibility of having gateways.
+Those details are also to be filled in if the user adds a new organization by clicking the Create button.
 
 \section{All users}
 All users consists of the users added to ChirpStack.
-List view shows the username, active status and admin privileges of the users.
-New user can be added from "Create"--button by providing the mandatory fields of username, e-mail address and password. Additional details are the optional note field and permission tick boxes where can be selected if the user is active and give global admin privileges.
+The list view shows the username, active status and admin privileges of the users.
+A new user can be added by clicking the Create button and providing the mandatory fields of username, e-mail address and password.
+Additional details are the optional note field and permission tick boxes which allow selecting if the user is active and giving global admin privileges.
 
-When the user selects an organization from the second section's drop-down list they can check and modify the information on the layouts the rest of the buttons navigate to.
+When the user selects an organization from the second section's drop-down list, that organization's details are used with all the buttons below to check and modify the information on the layouts the buttons navigate to.
 
 \section{Org. settings}
 Org. settings is for updating the settings of the selected organization of the drop-down list.
-Adjustable information is the same ones that there are, when a new organization is created.
+Adjustable information is the same ones are used, when a new organization is created on the previously mentioned Organizations layout.
 
 \section{Org. users}
 Org. users is a layout where the users assigned to the selected organizations can be seen and new ones can be added.
-The list view shows the id of the user, their username and if the user has admin privilege on that organization.
-The username is a hyperlink that directs to a layout where the username is seen and organizations admin privilege can be granted or removed.
-The same layout provides a "Delete"--button to remove a user from the organization, and an "Update user"--button if changes to privilege has been made, and a "Goto user"--button that directs to a similar layout to what All Users layout had for creating new user with fields populated with the details given upon user creation.
+The list view shows the ID of the user, their username and if the user has admin privilege on that organization.
+The username is a hyperlink that directs to a layout where the username is seen and where the organization's admin privilege can be granted or removed.
+The layout provides three buttons called Delete, Update user, and Goto user.
+The Delete button removes a user from the organization.
+The Update user button is used if changes to privilege has been made.
+The Goto user button directs to a similar layout to what the All Users layout had for creating a new user with fields populated with the details given upon user creation.
 \clearpage
 
 \section{Service-profiles}
-Service-profiles layout provides a list of service-profiles names that are appended to the organization.
-The name is a hyperlink that leads to page where you can update it's details.
-When a new service-profile is added from the "Create"--button a new layout opens.
+The Service-profiles layout provides a list of service profile names that are appended to the organization.
+The name is a hyperlink that leads to a page where details can be updated.
+When a new service-profile is added from the Create button a new layout opens.
 Service profile creation requires a service-profile name and a network server from a drop-down list of servers that are part of the organization.
-Additional details contain tickboxes to allowing to add gateway meta-data and to enable network geolocation and 3 fields to give the device-status request frequency, minimum allowed data-rate and maximum allowed data-rate.
+Additional details contain tickboxes to allowing to add gateway meta-data and to enable network geolocation.
+In addition 3 fields can be ticked to give the device-status request frequency, minimum allowed data-rate and maximum allowed data-rate.
 
 \section{Device-profiles}
 Device-profiles is otherwise similar to the service-profile layout with the difference of the form of adding or modifying a device profile.
