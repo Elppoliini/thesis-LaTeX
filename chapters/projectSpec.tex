@@ -3,19 +3,41 @@
 \chapter{Project Specifications} \label{ch:project_spec}
 This chapter explains further information about the starting point and the desired outcome of this project.
 The project was planned and developed for Metropolia University of Applied Sciences to automate processes used in wireless communication related courses in the school.
-The chapter 2 explained how the manual process of this projects implementation works giving good understanding of the starting point.
-This also gave all the physical tools required, meaning the \gls{lora} devices that the students use and that are to be added to the application on ChirpStack server.
-The Chirpstack \gls{os} which is installed on a micro\gls{sd} card is to be run with the LORIX One gateway.
-As there is no current plan to update any of them from the school's side of view they are also not to be replaced for this project.
+The chapter~\ref{ch:theor_backgr} explained how the manual process of this projects implementation works giving good understanding of the starting point.
+The school provided all the physical tools required, meaning the \gls{lora} devices that the students use and that are to be added to the application on ChirpStack server.
+The ChirpStack \gls{os} which is installed on a micro\gls{sd} card is to be run with the LORIX One gateway.
 
-The project's automation is implemented by using the Robot Framework for its broad possibilities to be developed and maintained further if needed, the possibilities of cross platform development and for its rich ecosystem, that eases the previous reasons by providing active support from the community, forums and other resources.
+Upon the first meeting there was a talk about the specifications of the wanted features for the project.
+The basic functions and procedures of ChirpStack were explained.
 
-Chapter 3 introduced what all the methods that have been chosen for this projects are.
-This chapter walks through why those methods were chosen and how they are going to be used.
+First requirement was a file where the information about each device that is part of a specific application is easily readable and maintainable.
+A proposition to use Excel for this was suggested and agreed upon during the first meeting.
+The file structure defines a lot about the way the data can be accessed and modified.
+Excel worksheets consists of cells that are indexed to certain rows and columns.
+This enables a large variation of possibilities to form the structure.
+It was agreed to have one sheet as a container for each application to simplify the layout design.
 
-\todo{They have 
-a clear idea of what needs to be done and what tools/systems/devices etc
-student describes the project specifications in as much detail as 
-possible and explains the reasoning behind them}
+The manual work that was decided to automate consists of interaction with the ChirpStack's web-interface.
+Tasks that the automation handles were discussed and following tasks were chosen to be implemented: Application creation, adding devices to application, removing application and removing one device from application.
+Following sections explains what each task does when the implementation is in place.
+
+Application creation creates a new application, using the name, description and service-profile's name given in the spreadsheet.
+After the application is created it adds all the listed devices from that spreadsheet to the application, providing them the device name, device description, device \gls{eui}, device-profile and application key.
+
+Adding devices to application task is for already existing applications in the ChirpStack server.
+It adds devices to the selected application from the corresponding spreadsheet.
+If a device is already added to the server it is ignored.
+
+Removing application task deletes the selected application from the ChirpStack server.
+When application is removed all the devices that had been on the application are also removed.
+
+Removing one device from application deletes the selected device from the selected application.
+
+The automation should take in consideration possible scenarios where things might go wrong, to avoid errors when executing the tasks.
+These scenarios could be something from invalid user input to issues with slow connection on the server that causes timeouts when the code is run.
+
+The project's automation was selected to be implemented by using the Robot Framework for its broad possibilities to be developed and maintained further if needed, the possibilities of cross platform development and for its rich ecosystem, that eases the previous reasons by providing active support from the community, forums and other resources.
+To use Robot Framework, it needs to be considered what libraries are beneficial to generate the tasks for the automation.
+
 
 \clearpage %force the next chapter to start on a new page. Keep that as the last line of your chapter!

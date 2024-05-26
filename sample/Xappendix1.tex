@@ -1,29 +1,657 @@
 % Appendix 
 % And demonstrate text references and bibliography references in appendix
 
-\chapter{Some Appendix}\label{appx:first}
+\chapter{Appendix}\label{appx:sourcecode}
 
-Note that every appendix will be a chapter.
+This Appendix provides the source code that has been implemented for the project.
+Code is divided to sections by file names.
+More details about the functionality of the implementation can be found from Chapter~\ref{ch:impl}
 
-Sorry for the ugly hack on how to count the total pages per appendix.
+\section{variables.py}
+
+This file contains all the variables that are made using mainly the ChirpStack web-interface's elements.
+The elements are found by using the xpath selectors and in a few variables text of the elements as well, to recognize the correct element.
+In the beginning of the file also the url addresses, used browser and login details are defined.
+All variables in \path{variables.py} are defined by using uppercase letters, so that they can easily be recognized from other variables in the \path{__init__.robot} and \path{automation.robot} files.
+
+Sensitive details, meaning the IP addresses and login details, have been replaced with dummy ones.
+Some strings were too long to show in the pdf form, so they were splitted in smaller strings inside a variable.
+They still function as before, but this should be taken in consideration if the variables are to be modified.
+All other variables are shown with the original values.
+
+\begin{minted}{python}
+#Variables for suite setup
+CHIRPSTACK_LOGIN_PAGE_URL = "http://192.168.1.134:8080/#/login"
+BROWSER = "chromium"
+APPLICATIONS_FRONTPAGE_URL = "http://192.168.1.134:8080/#/organizations/1/applications"
+USERNAME = "admin"
+PASSWORD = "admin"
+LOGIN_BUTTON = xpath="//*[@id=\"root\"]" "/div/div[1]/div/div/div/div/div[2]" "/form/div[3]/button/span[1]"
+ROW_AMOUNT_DROPDOWN = xpath="//*[@id=\"root\"]/div/div[2]/div/div/div[2]/div/div/div/div[2]/div"
+HUNDRED = xpath="//*[@id=\"menu-\"]/div[3]/ul/li[4]"
+
+#Variables for suite teardown
+USER_BUTTON = xpath="//*[@id=\"root\"]/div/header/div/div[2]/span"
+LOGOUT = xpath="//*[@id=\"menu-appbar\"]/div[3]/ul/li"
+
+#Variables for excel
+EXCEL_FILE = "Applications.xlsx"
+
+#Variables in applications layout
+CREATE_BUTTON_NEW_APPLICATION = xpath="//*[@id=\"root\"]/div/div[2]/div/div/div[1]/div[2]/a/span[1]"
+APPLICATION_ROW = xpath="//*[@id=\"root\"]/div/div[2]/div/div/div[2]/div/table/tbody/tr"
+APPLICATIONS_IN_ELEMENTS_LISTS = xpath="//*[@id=\"root\"]/div/div[2]/div/div/div[2]/div/table/tbody/tr"
+
+#Variables in application creation
+APPLICATIONS = "//*[@id=\"root\"]/div/div[2]/div/div/div[1]/div[1]/a >> text=Applications"
+APPLICATION_NAME_FIELD = xpath="//*[@id=\"name\"]"
+APPLICATION_DESCRIPTION_FIELD = xpath="//*[@id=\"description\"]"
+SERVICE_PROFILE_DROPDOWN_LIST = xpath="//*[@id=\"react-select-serviceProfileID--value\"]/div[1]"
+CREATE_APPLICATION_BUTTON = xpath="//*[@id=\"root\"]" "/div/div[2]" "/div/div/div[2]" "/div/div/form/div[4]/button/span[2]"
+DEVICES_IN_ELEMENTS_LISTS = xpath="//*[@id=\"root\"]/div/div[2]" "/div/div/div[3]" "/div/div[2]/div/table/tbody/tr"
+
+#Variables in opened application layout
+APPLICATION_NAME_LINK = xpath="//*[@id=\"root\"]/div/div[2]/div/div/div[1]/div[1]/a[2]"
+APPLICATION_NAME = xpath="//*[@id=\"root\"]/div/div[2]/div/div/div[1]/div[1]/h6[2]"
+CREATE_BUTTON_NEW_DEVICE = xpath="//*[@id=\"root\"]/div/div[2]/div/div/div[3]/div/div[1]/a/span[1]"
+DELETE_BUTTON_APPLICATION = xpath="//*[@id=\"root\"]/div/div[2]/div/div/div[1]/div[2]/button/span[1]"
+
+#Variables in opened device layout
+DELETE_BUTTON_DEVICE = xpath="//*[@id=\"root\"]/div/div[2]/div/div/div[1]/div[2]/button/span[1]"
+
+#Variables in device creation
+LINK_TO_DEVICES = xpath="//*[@id=\"root\"]/div/div[2]/div/div/div[1]/div[1]/a[3]"
+DEVICE_NAME_FIELD = xpath="//*[@id=\"name\"]"
+DEVICE_DESCRIPTION_FIELD = xpath="//*[@id=\"description\"]"
+DEVICE_EUI_FIELD = xpath="//*[@id=\"devEUI\"]"
+DEVICE_PROFILE_DROPDOWN_LIST = xpath="//*[@id=\"react-select-deviceProfileID--value\"]/div[1]"
+
+CREATE_DEVICE_BUTTON = xpath="//*[@id=\"root\"]/div/div[2]" "/div/div/div[2]" "/div/div/form/div[3]/button/span[1]"
+APPLICATION_KEY_FIELD = xpath="//*[@id=\"nwkKey\"]"
+SET_DEVICE_KEYS_BUTTON = xpath="//*[@id=\"root\"]/div/div[2]" "/div/div/div[3]/div/div" "/div/div/form/div[3]/button/span[1]"
+
+OBJECT_ALREADY_EXISTS_ERROR_MESSAGE = "xpath=//*[@id=\"root\"]/div[2] >> text=object already exists (code: 6)"
+APPLICATION_DELETED_MESSAGE = "xpath=//*[@id=\"root\"]/div[2] >> text=object already exists (code: 6)application has been deleted"
+ALERT_MESSAGE = xpath="//*[@id=\"root\"]/div[2]"
+\end{minted}
 
 
-Of course with section and subsection.
+\section{\_\_init\_\_.robot}
 
-\section{Appendix Section}
+This file is used for initialization.
+It includes the suite setup and suite teardown definitions that are before and after executing the \path{automation.robot} file.
 
-And you can cite \cite{tobias:book} stuff, it will go into the main bibliography.
+\begin{minted}{python}
+*** Settings ***
+Library             Browser
+Library             BuiltIn
+Variables           ../resources/variables.py
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam aliquam aliquam purus, in ornare nulla imperdiet molestie. Nam tempus erat eu dui rhoncus et vestibulum mi elementum. Ut porttitor elit sit amet justo dignissim sit amet sagittis massa egestas. Mauris sed dolor eget dui fermentum sodales ut eu nibh.
+Suite Setup         Login to ChirpStack
+Suite Teardown      Log out from ChirpStack
 
-Quisque augue est, elementum ac porttitor non, porttitor ac orci. Donec hendrerit, ligula ac luctus egestas, sem dolor pretium nunc, sed vehicula magna diam a massa. Donec mattis, arcu et tempor mattis, risus tortor ultrices metus, nec sodales sem dolor eu elit. Nullam egestas enim at odio pellentesque bibendum. 
 
-\subsection{With a Subsection}
+*** Keywords ***
+Login to ChirpStack
+    New Browser    browser=${BROWSER}    headless=true
+    New Page    ${CHIRPSTACK_LOGIN_PAGE_URL}
+    Type Text    id=username    ${USERNAME}
+    Type Text    id=password    ${PASSWORD}
+    Click    ${LOGIN_BUTTON}
+    Wait For Elements State    ${CREATE_BUTTON_NEW_APPLICATION}    Visible    timeout=5
+    ${currentUrl}    Get Url
+    Should Be Equal    ${currentUrl}    ${APPLICATIONS_FRONTPAGE_URL}
+    Set Amount of Rows per Page to Hundred
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam aliquam aliquam purus, in ornare nulla imperdiet molestie. Nam tempus erat eu dui rhoncus et vestibulum mi elementum. Ut porttitor elit sit amet justo dignissim sit amet sagittis massa egestas. Mauris sed dolor eget dui fermentum sodales ut eu nibh.
+Log out from ChirpStack
+    Click    ${USER_BUTTON}
+    Click    ${LOGOUT}
+    Close Browser
 
-Quisque augue est, elementum ac porttitor non, porttitor ac orci. Donec hendrerit, ligula ac luctus egestas, sem dolor pretium nunc, sed vehicula magna diam a massa. Donec mattis, arcu et tempor mattis, risus tortor ultrices metus, nec sodales sem dolor eu elit. Nullam egestas enim at odio pellentesque bibendum. 
+Set Amount of Rows per Page to Hundred
+    Click    ${ROW_AMOUNT_DROPDOWN}
+    Click    ${HUNDRED}
 
-Donec et sapien ac leo condimentum vulputate id et tellus. Maecenas hendrerit malesuada interdum. Aenean dignissim sem faucibus elit congue faucibus id non risus. Morbi at dui non tortor pellentesque consequat non eget urna. Cras in sapien dui, a tincidunt velit.
+\end{minted}
 
-\clearpage %force the next chapter/appendix to start on a new page. Keep that as the last line of your appendix!
+\section{automation.robot}
+This file contains the main automation of the implementation.
+
+\begin{minted}{python}
+*** Settings ***
+Library         Browser
+Library         Dialogs
+Library         RPA.Excel.Files
+Library         Collections
+Variables       ../resources/variables.py
+
+
+*** Variables ***
+# Variables are named snake_case wise and variables named in lowcase letters are created inside keywords and the ones with uppercases
+# are created and iported from variables.py file.
+
+
+*** Tasks ***
+Main
+    Take User Input
+
+
+*** Keywords ***
+Add Devices
+    [Documentation]
+    ...    This keyword adds devices to already opened application layout by using the excel
+    ...    sheet that correponds the application name on the web-interface.
+    Wait For Elements State    ${APPLICATION_NAME}    Visible
+    ${application_name} =    Get Text    ${APPLICATION_NAME}
+    Log    ${application_name}
+    Open Workbook    ${EXCEL_FILE}
+    Set Active Worksheet    ${application_name}
+    ${current_application_row} =    Set Variable    4
+    ${application} =    Read Worksheet As Table    header=True    start=${current_application_row}
+    Log Many    ${application}
+
+    FOR    ${device}    IN    @{application}
+        Log    current row is ${current_application_row}
+        Log    ${device}
+        Add One Device    ${device}    ${current_application_row}
+        ${current_application_row} =    Evaluate    ${current_application_row} + 1
+        Log    current row after increment ${current_application_row}
+    END
+    Close Workbook
+
+Add One Device
+    [Documentation]
+    ...    This keyword adds a single device to application.
+    ...    Takes device ${device} and the row number it exists on the excel sheet as an argument to get access
+    ...    to the chosen device's information.
+    [Arguments]    ${device}    ${row_number}
+    Click    ${CREATE_BUTTON_NEW_DEVICE}
+    ${column_number} =    Set Variable    6
+    ${application_name} =    Get Text    ${APPLICATION_NAME_LINK}
+    Wait For Elements State    text="Disable frame-counter validation"    Visible    timeout=40
+    Type Text    ${DEVICE_NAME_FIELD}    ${device}[Device name]
+    Type Text    ${DEVICE_DESCRIPTION_FIELD}    ${device}[Device description]
+    Type Text    ${DEVICE_EUI_FIELD}    ${device}[Device EUI]
+    Click    ${DEVICE_PROFILE_DROPDOWN_LIST}
+    Click    text=${device}[Device-profile]
+    Click    ${CREATE_DEVICE_BUTTON}
+    ${alert_message} =    Get Text    ${ALERT_MESSAGE}
+    Log    ${alert_message}
+    # Log    ${bool_device_already_exists}
+    # IF    $bool_device_already_exists == True
+    IF    $alert_message == "object already exists (code: 6)"
+        # Check if a device with the same name that was tried to be added exists on the current application
+        Click    ${APPLICATION_NAME_LINK}
+        ${current_devices} =    Get device names from current application
+        ${current_app_contains_device_with_same_name} =    Run Keyword And Return Status
+        ...    List Should Contain Value
+        ...    ${current_devices}
+        ...    ${device}[Device name]
+        IF    ${current_app_contains_device_with_same_name} == True    RETURN
+        # Check where the device with the same EUI exists
+        Click    ${APPLICATIONS}
+        ${application_row_lists_by_headers} =    Get Application elements as lists
+        ${application_name_elements} =    Set Variable    ${application_row_lists_by_headers}[1]
+        ${application_names} =    Get Application Names    ${Application_name_elements}
+        ${application_to_go_back} =    Get Application Element with Name
+        ...    ${application_names}
+        ...    ${application_name}
+        ...    ${application_name_elements}
+        ${application_where_device_exists} =    Find a Device EUI from Application Names
+        ...    ${device}[Device EUI]
+        ...    ${application_name_elements}
+        ${application_where_device_exists} =    Get Text    ${application_where_device_exists}
+        Log    ${application_where_device_exists}
+        Click    ${application_to_go_back}
+        Set Cell Value    ${row_number+1}    ${column_number}    ${application_where_device_exists}
+        ${confirm_cell_value} =    Get Cell Value    ${row_number}    ${column_number}
+        Log    ${confirm_cell_value}
+        Save Workbook
+        RETURN
+    END
+    Wait For Elements State    ${APPLICATION_KEY_FIELD}    Visible    timeout=40
+    Type Text    ${APPLICATION_KEY_FIELD}    ${device}[Application Key]
+    Wait For Elements State
+    ...    ${SET_DEVICE_KEYS_BUTTON}
+    ...    Visible
+    ...    timeout=40
+    Click    ${SET_DEVICE_KEYS_BUTTON}
+
+ Create Application
+    [Documentation]
+    ...    This keyword creates an application ${application_name} to the ChirpStack server
+    ...    with the corresponding sheet's details in the excel file and adds the devices from excel sheet.
+    ...    Validation of name is done during the user input.
+    [Arguments]    ${application_name}
+    Click    ${CREATE_BUTTON_NEW_APPLICATION}
+    Open Workbook    ${EXCEL_FILE}
+    ${application_name_is_found_from_worksheet} =    Run Keyword And Return Status
+    ...    Set Active Worksheet
+    ...    ${application_name}
+    ${application} =    Read Worksheet As Table    header=True
+    ${application_name} =    Get Cell Value    2    A
+    Type Text    ${APPLICATION_NAME_FIELD}    ${application_name}
+    ${application_description} =    Get Cell Value    2    B
+    Type Text    ${APPLICATION_DESCRIPTION_FIELD}    ${application_description}
+    ${service_profile} =    Get Cell Value    2    C
+    Click    ${SERVICE_PROFILE_DROPDOWN_LIST}
+    Click    text=${service_profile}
+    Click    ${CREATE_APPLICATION_BUTTON}
+    Close Workbook
+    Wait For Elements State    ${CREATE_BUTTON_NEW_APPLICATION}    Visible
+    # Access the newly created application name's element to open the application to add devices
+    @{application_element_lists} =    Get Application elements as lists
+    @{application_name_elements} =    Create List
+    @{application_name_elements} =    Get From List    ${application_element_lists}    1
+    @{application_names} =    Get Application Names    ${application_name_elements}
+    ${application_name_element} =    Get Application Element with Name
+    ...    ${application_names}
+    ...    ${application_name}
+    ...    ${application_name_elements}
+    # Navigate back to the just created application to add devices
+    Open Application    ${application_name_element}
+    Add Devices
+
+Delete Application
+    [Documentation]
+    ...    This keyword deletes a given application ${application_element} from the ChirpStack server.
+    [Arguments]    ${application_element}
+    ${application_name} =    Get Text    ${application_element}
+    Log    ${application_name}
+    Open Application    ${application_element}
+    Promise To    Wait For Alert    accept
+    Click    ${DELETE_BUTTON_APPLICATION}
+    Wait For All Promises
+    Wait For Elements State    ${APPLICATION_DELETED_MESSAGE}    Visible    timeout=3s
+
+Delete One Device
+    [Documentation]
+    ...    This keyword deletes a given device by element${device_name_element} from an application.
+    ...    Application need to be opened already on the web-interface.
+    [Arguments]    ${device_name_element}
+    ${device_name} =    Get Text    ${device_name_element}
+    Log    ${device_name}
+    Click    ${device_name_element}
+    Promise To    Wait For Alert    accept
+    Click    ${DELETE_BUTTON_DEVICE}
+    Wait For All Promises
+    Wait For Elements State    ${device_name_element}    detached    timeout=200ms
+
+Find a Device EUI from Application Names
+    [Documentation]
+    ...    This keyword searches for a given device_EUI ${device_EUI}
+    ...    from a list of applications elements ${application_name_elements}.
+    ...    If a device is found, the keyword returns the element of the application
+    ...    it was found from and otherwise a boolean value ${False} is returned.
+    [Arguments]    ${device_eui}    ${application_name_elements}
+    ${list_size} =    Get Length    ${application_name_elements}
+    Log    ${list_size}
+    ${device_eui_index} =    Set Variable    2
+    FOR    ${index}    IN RANGE    0    ${list_size}
+        Log    ${index}
+        ${application_element} =    Get From List    ${application_name_elements}    ${index}
+        @{devices_on_application} =    List Device attributes by header type
+        ...    ${application_element}
+        ...    ${device_eui_index}
+        ${contains_device} =    Run Keyword And Return Status
+        ...    List Should Contain Value
+        ...    ${devices_on_application}
+        ...    ${device_eui}
+        Click    ${APPLICATIONS}
+        IF    ${contains_device} == $True    RETURN    ${application_element}
+    END
+    RETURN    ${False}
+
+Get Application Element with Name
+    [Documentation]
+    ...    This keyword returns the element with the given application name ${application_name}
+    ...    by using lists of application names ${application_names} and application name elements ${application_name_elements}.
+    [Arguments]    ${application_names}    ${application_name}    ${application_name_elements}
+    Log    ${application_names}
+    Log    ${application_name}
+    Log    ${application_name_elements}
+    ${application_index} =    Get Index From List    ${application_names}    ${application_name}
+    Log    ${application_index}
+    ${application_element} =    Get From List    ${application_name_elements}    ${application_index}
+    Log    ${application_element}
+    RETURN    ${application_element}
+
+Get Application Names
+    [Documentation]
+    ...    This keyword lists all Application names that are in the given list of
+    ...    elements ${application_name_elements} and returns them as a list ${application_names}.
+    ...    Web-interface needs to be opened in the Applications layout
+    [Arguments]    ${application_name_elements}
+    ${amount_of_applications} =    Get Length    ${application_name_elements}
+    @{application_names} =    Create List
+    FOR    ${index}    IN RANGE    0    ${amount_of_applications}
+        ${application_element} =    Get From List    ${application_name_elements}    ${index}
+        ${application_name} =    Get Text    ${Application_element}
+        Log    ${application_name}
+        Append To List    ${application_names}    ${application_name}
+    END
+    Log many    @{application_names}
+    RETURN    ${application_names}
+
+Get Application elements as lists
+    [Documentation]
+    ...    This keyword goes through all Application Names that are in
+    ...    the Chirpstack server and each row's elements are saved in a list .
+    ...    The keyword returns those lists as a list.
+    ...    Web-interface needs to be in Applications layout for this keyword
+    @{list} =    Get Elements    ${APPLICATIONS_IN_ELEMENTS_LISTS}
+    ${application_amount} =    Get Length    ${list}
+    Log Many    @{list}
+    @{application_ids} =    Create List
+    @{application_names} =    Create List
+    @{application_service-profiles} =    Create List
+    @{application_descriptions} =    Create List
+
+    FOR    ${index}    IN RANGE    0    ${application_amount}
+        Log    ${index}
+        ${current_app_id} =    Get Element
+        ...    ${APPLICATIONS_IN_ELEMENTS_LISTS}\[${index}+1]/td[1]
+        Log    ${current_app_id}
+        Append To List    ${application_ids}    ${current_app_id}
+        ${current_app_name} =    Get Element
+        ...    ${APPLICATIONS_IN_ELEMENTS_LISTS}\[${index}+1]/td[2]/a
+        Log    ${current_app_name}
+        Append To List    ${application_names}    ${current_app_name}
+        ${current_app_service_profile} =    Get Element
+        ...    ${APPLICATIONS_IN_ELEMENTS_LISTS}\[${index}+1]/td[3]/a
+        Log    ${current_app_service_profile}
+        Append To List    ${application_service-profiles}    ${current_app_service_profile}
+        ${current_app_description} =    Get Element
+        ...    ${APPLICATIONS_IN_ELEMENTS_LISTS}\[${index}+1]/td[4]
+        Log    ${current_app_description}
+        Append To List    ${application_descriptions}    ${current_app_description}
+    END
+    Log Many    @{application_ids}
+    Log Many    @{application_names}
+    Log Many    @{application_service-profiles}
+    Log Many    @{application_descriptions}
+    @{application_elements_by_header_types} =    Create List
+    Append to List    ${application_elements_by_header_types}    ${application_ids}
+    Append to List    ${application_elements_by_header_types}    ${application_names}
+    Append to List    ${application_elements_by_header_types}    ${application_service-profiles}
+    Append to List    ${application_elements_by_header_types}    ${application_descriptions}
+    Log Many    @{application_elements_by_header_types}
+    ${list_size} =    Get Length    ${application_elements_by_header_types}
+    Log    ${list_size}
+    RETURN    @{application_elements_by_header_types}
+
+Get Device elements as list
+    [Documentation]
+    ...    This keyword goes through all devices that are in
+    ...    application and each row's all elements are saved in separate lists.
+    ...    The keyword returns those lists as one list.
+    ...    Web-interafce needs to be opened to a desired applications to access the elements.
+    @{list} =    Get Elements    ${DEVICES_IN_ELEMENTS_LISTS}
+    ${device_amount} =    Get Length    ${list}
+    Log Many    @{list}
+    @{device_last_seens} =    Create List
+    @{device_names} =    Create List
+    @{device_euis} =    Create List
+
+    FOR    ${index}    IN RANGE    0    ${device_amount}
+        Log    ${index}
+        ${current_device_last_seen} =    Get Element
+        ...    ${DEVICES_IN_ELEMENTS_LISTS}\[${index}+1]/td[1]
+        Log    ${current_device_last_seen}
+        Append To List    ${device_last_seens}    ${current_device_last_seen}
+        ${current_device_name} =    Get Element
+        ...    ${DEVICES_IN_ELEMENTS_LISTS}\[${index}+1]/td[2]/a
+        Log    ${current_device_name}
+        Append To List    ${device_names}    ${current_device_name}
+        ${current_device_eui} =    Get Element
+        ...    ${DEVICES_IN_ELEMENTS_LISTS}\[${index}+1]/td[3]
+        Log    ${current_device_eui}
+        Append To List    ${device_euis}    ${current_device_eui}
+    END
+    Log Many    @{device_last_seens}
+    Log Many    @{device_names}
+    Log Many    @{device_euis}
+    @{device_elements_by_header_types} =    Create List
+    Append to List    ${device_elements_by_header_types}    ${device_last_seens}
+    Append to List    ${device_elements_by_header_types}    ${device_names}
+    Append to List    ${device_elements_by_header_types}    ${device_euis}
+    Log Many    @{device_elements_by_header_types}
+    ${list_size} =    Get Length    ${device_elements_by_header_types}
+    Log    ${list_size}
+    RETURN    @{device_elements_by_header_types}
+
+Get device names from current application
+    [Documentation]
+    ...    This keyword returns a list of device names ${device_names} that access
+    ...    on the application that is open on the web-interface.
+    ${device_headers_as_lists} =    Get Device elements as list
+    ${device_name_index} =    Set Variable    1
+    @{device_names} =    Create List
+    FOR    ${element}    IN    @{device_headers_as_lists}[${device_name_index}]
+        ${device_name} =    Get Text    ${element}
+        Log    ${device_name}
+        Append To List    ${device_names}    ${device_name}
+    END
+    Log Many    ${device_names}
+    RETURN    ${device_names}
+
+List Device attributes by header type
+    [Documentation]
+    ...    This keyword lists all devices that are in
+    ...    the given application ${application_element} and returns the selected type as a list ${all_devices_by_attribute_name}
+    ...    by using the headers index.
+    ...    Index options are from 0 to 2. Index 0 returns last seen value- elements, 1 returns device name elements and 2 device EUIs.
+    [Arguments]    ${application_element}    ${header_index}
+    Open Application    ${application_element}
+    ${application_name} =    Get Text    ${APPLICATION_NAME}
+    Log    Devices are from ${application_name} application
+    @{device_element_lists} =    Get Device elements as list
+    @{device_elements_by_header_type} =    Create List
+    @{device_elements_by_header_type} =    Get From List    ${device_element_lists}    ${header_index}
+    Log Many    @{device_elements_by_header_type}
+    ${list_size} =    Get Length    ${device_elements_by_header_type}
+    Log    ${list_size}
+    @{all_devices_by_attribute_name} =    Create List
+    FOR    ${index}    IN RANGE    0    ${list_size}
+        ${device_name_element} =    Get From List    ${device_elements_by_header_type}    ${index}
+        ${device_attribute_name} =    Get Text    ${device_name_element}
+        Log    ${device_attribute_name}
+        Append To List    ${all_devices_by_attribute_name}    ${device_attribute_name}
+    END
+    Log many    @{all_devices_by_attribute_name}
+    RETURN    ${all_devices_by_attribute_name}
+
+List worksheets on Excel
+    [Documentation]
+    ...    This keyword lists all worksheets
+    ...    in the given excel file${EXCEL_FILE}.
+    Open Workbook    ${EXCEL_FILE}
+    @{sheets} =    List Worksheets
+    RETURN    ${sheets}
+
+Open Application
+    [Documentation]
+    ...    This keyword opens a given application using it's element ${application_element} from the ChirpStack server.
+    ...    Web-interafce needs to be on the applications layout.
+    [Arguments]    ${application_element}
+    Click    ${application_element}
+
+Remove Already Existing Application Names from Sheet options
+    [Documentation]
+    ...    This keyword removes application names that are on given ${application_names} list
+    ...    from a list of worksheets ${list_of_worksheets}.
+    [Arguments]    ${list_of_worksheets}    ${application_names}
+    Log Many    ${list_of_worksheets}
+    Log Many    ${application_names}
+    ${list_size} =    Get Length    ${application_names}
+    FOR    ${index}    IN RANGE    0    ${list_size}
+        ${name} =    Get From List    ${application_names}    ${index}
+        Log    ${name}
+        ${sheet_contains_same_name_bool} =    Run Keyword And Return Status
+        ...    List Should Contain Value
+        ...    ${list_of_worksheets}
+        ...    ${name}
+        IF    ${sheet_contains_same_name_bool} == $True
+            Log Many    ${list_of_worksheets}
+            ${i} =    Get Index From List    ${list_of_worksheets}    ${name}
+            Remove From List    ${list_of_worksheets}    ${i}
+            Log Many    ${list_of_worksheets}
+        END
+    END
+
+Take User Input
+    [Documentation]
+    ...    This keyword provides a selection of commands the user can perform on the Chirpstack server
+    ...    Corresponding actions for that choice are then executed
+    ...
+    ...    The keyword have four commands to choose from:
+    ...    Create new Application
+    ...    Add missing devices to existing Application
+    ...    Delete Application
+    ...    Delete a device from application
+    @{application_list} =    Get Application elements as lists
+    Log Many    @{application_list}
+    ${application_list_size} =    Get Length    ${application_list}
+    Log    ${application_list_size}
+    @{application_name_elements} =    Create List
+    ${application_name_index} =    Set Variable    1
+    @{application_name_elements} =    Get From List    ${application_list}    ${application_name_index}
+    Log Many    @{application_name_elements}
+
+    @{existing_application_names} =    Get Application Names    ${application_name_elements}
+    Log Many    ${existing_application_names}
+
+    ${command} =    Get Selection From User
+    ...    Choose a command:
+    ...    Create new Application
+    ...    Add missing devices to existing Application
+    ...    Delete Application
+    ...    Delete a device from Application
+
+    Log    ${command}
+    IF    $command == "Create new Application"    # needs to be also in the Excel
+        @{list_of_worksheets} =    List worksheets on Excel
+        Remove Already Existing Application Names from Sheet options
+        ...    ${list_of_worksheets}
+        ...    ${existing_application_names}
+        ${list_size} =    Get Length    ${list_of_worksheets}
+        IF    ${list_size} == 0
+            Append To List    ${list_of_worksheets}    All sheets are already added to server. Exit
+        END
+        ${chosen_application} =    Get Selection From User
+        ...    Choose Application name you want to create from the excel file. \nAll sheets with the same application name that the server already has have been removed from options\n
+        ...    @{list_of_worksheets}
+        Log    ${chosen_application}
+        IF    $chosen_application == "All sheets are already added to server. Exit"
+            RETURN
+        END
+        Create Application    ${chosen_application}
+    ELSE IF    $command == "Add missing devices to existing Application"    # Applications needs to be also in the Excel
+        @{list_of_worksheets} =    List worksheets on Excel
+        Log Many    ${list_of_worksheets}
+        # Remove applications that are on excel but not added in ChirpStack
+        FOR    ${app_name}    IN    @{list_of_worksheets}
+            Log    ${app_name}
+            ${application_is_not_in_chirpstack_bool} =    Run Keyword And Return Status
+            ...    List Should Not Contain Value
+            ...    ${existing_application_names}
+            ...    ${app_name}
+            IF    ${application_is_not_in_chirpstack_bool} == True
+                ${app_name_index} =    Get Index From List    ${list_of_worksheets}    ${app_name}
+                Remove From List    ${list_of_worksheets}    ${app_name_index}
+            END
+        END
+        ${chosen_application} =    Get Selection From User
+        ...    Choose Application which missing devices you want to add:
+        ...    @{list_of_worksheets}
+        Log    ${chosen_application}
+        ${application_element} =    Get Application Element with Name
+        ...    ${existing_application_names}
+        ...    ${chosen_application}
+        ...    ${application_name_elements}
+        Open Application    ${application_element}
+        Add Devices
+    ELSE IF    $command == "Delete Application"
+        ${chosen_application} =    Get Selection From User
+        ...    Choose Application you want to delete.
+        ...    @{existing_application_names}
+        Log    ${chosen_application}
+        ${application_element} =    Get Application Element with Name
+        ...    ${existing_application_names}
+        ...    ${chosen_application}
+        ...    ${application_name_elements}
+        Delete Application    ${application_element}
+    ELSE IF    $command == "Delete a device from Application"    # Application can also be deleted if there is no devices on it while executing this command
+        ${chosen_application} =    Get Selection From User
+        ...    Choose Application from which you want to delete a device
+        ...    @{existing_application_names}
+        Log    ${chosen_application}
+        ${application_element} =    Get Application Element with Name
+        ...    ${existing_application_names}
+        ...    ${chosen_application}
+        ...    ${application_name_elements}
+        ${device_name_header_index} =    Set Variable    1
+        @{list_of_devices} =    List Device attributes by header type
+        ...    ${application_element}
+        ...    ${device_name_header_index}
+        Log Many    @{list_of_devices}
+        ${list_is_empty_bool} =    Run Keyword And Return Status    Should Be Empty    @{list_of_devices}
+        Log    ${list_is_empty_bool}
+        IF    @{list_of_devices} == @{EMPTY}
+            ${new_command} =    Get Selection From User
+            ...    This Application doesn't have any added devices. Do you want to:
+            ...    Delete this application
+            ...    Exit
+            Log    ${new_command}
+            IF    $new_command == "Delete this application"
+                # Go back to page where applications are listed
+                Click    xpath=//*[@id="root"]/div/div[2]/div/div/div[1]/div[1]/a
+                Delete Application    ${application_element}
+                RETURN
+            ELSE IF    $new_command == "Exit"
+                RETURN
+            END
+        END
+        ${device_name} =    Get Selection From User
+        ...    Choose the device you want to delete
+        ...    @{list_of_devices}
+        Log    ${device_name}
+        ${index_of_device} =    Get Index From List    ${list_of_devices}    ${device_name}
+        @{all_device_element_lists} =    Get Device elements as list
+        @{device_name_elements} =    Create List
+        @{device_name_elements} =    Get From List    ${all_device_element_lists}    ${device_name_header_index}
+        ${device_name_element} =    Get From List    ${device_name_elements}    ${index_of_device}
+        Delete One Device    ${device_name_element}
+    END
+
+Update Existing Application Names
+    [Arguments]
+    ...    ${application_id_elements}
+    ...    ${application_name_elements}
+    ...    ${application_service-profile_elements}
+    ...    ${application_description_elements}
+    ...    ${existing_application_names}
+    ${application_element_lists} =    Get Application elements as lists
+    @{application_id_elements} =    Get From List    ${application_element_lists}    0
+    Log Many    @{application_id_elements}
+    @{application_name_elements} =    Get From List    ${application_element_lists}    1
+    Log Many    @{application_name_elements}
+    @{application_service-profile_elements} =    Get From List    ${application_element_lists}    2
+    Log Many    @{application_service-profile_elements}
+    @{application_description_elements} =    Get From List    ${application_element_lists}    3
+    Log Many    @{application_description_elements}
+    @{existing_application_names} =    Get Application Names    ${application_name_elements}
+    Log Many    ${existing_application_names}
+
+\end{minted}
+
+\section{requirements.txt}
+
+\begin{minted}{python}
+robotframework==6.1.1
+rpaframework==27.7.0
+robotframework-browser==18.4.0
+
+\end{minted}
+
+

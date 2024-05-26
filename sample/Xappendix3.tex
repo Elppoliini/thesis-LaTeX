@@ -1,0 +1,82 @@
+% Appendix 
+% And demonstrate text references and bibliography references in appendix
+
+\chapter{Appendix}\label{appx:testing}
+
+This appendix provides the Python script used in the \gls{lora} end devices for testing the functionality of the implementation.
+The testing results are explained in Chapter~\ref{ch:impl}
+The testing included two scripts as two boards were used.
+The Appendix only shows one as there is only one variable value changed, which is the given application key.
+That is changed on the row were loraModule 1 is defined.
+
+
+\begin{minted}{python}
+from machine import UART, Pin
+import time
+
+class LoraModule:
+  def __init__(self, uart, appkey, port):
+    self.uart = uart
+    self.appkey = appkey
+    self.port = port
+
+  def send(self, cmd):
+    self.uart.write(bytes(cmd+'\r\n', 'iso-8859-1'))
+  
+  def read(self):
+    res = self.uart.read(200)         # read 
+    if res != None:
+        print(res.decode('iso-8859-1'))
+        return len(res)
+    else:
+        return 0
+  
+  def wait(self, reply, count=1):
+    str1 = ''
+    while count > 0 :
+        res = self.uart.read(200)         # read 
+        if res != None:
+            str1 = str1 + res.decode('iso-8859-1')
+            print(str1)
+        count = count - 1
+        if str1.find(reply) >= 0:
+            return True, str1
+    return False, str1
+
+uart1 = UART(0, baudrate=9600, tx=Pin(0), rx=Pin(1), timeout = 1000)
+uart2 = UART(1, baudrate=9600, tx=Pin(4), rx=Pin(5), timeout = 1000)
+
+loraModule1 = LoraModule(uart1, "51D5C64885C9E7C3E0EAE2840E876150", "8")
+loraModule2 = LoraModule(uart2, "51D5C64885C9E7C3E0EAE2840E876150", "9")
+
+print('Boot')
+for loraModule in [loraModule1, loraModule2]:
+  loraModule.send('AT+ID')
+  loraModule.wait('AppEui')
+  loraModule.send('AT+MODE=LWOTAA')
+  loraModule.wait('+MODE: LWOTAA')
+  loraModule.send('AT+DR')
+  loraModule.wait('EU868')
+  #loraModule.send('AT+KEY=APPKEY,"4EB579FB15394DD1D7E2AF6EA0103829"')
+  loraModule.send(f'AT+KEY=APPKEY,"{loraModule.appkey}"')
+  loraModule.wait('+KEY: APPKEY')
+  loraModule.send('AT+CLASS=A')
+  loraModule.wait('+CLASS: A')
+  loraModule.send(f'AT+PORT={loraModule.port}')
+  loraModule.wait(f'+PORT: {loraModule.port}')
+
+  loraModule.send('AT+JOIN')
+  status, res = loraModule.wait('+JOIN: Done',12)
+  
+  while not status or res.find('failed') >= 0:
+    loraModule.send('AT+JOIN')
+    status, res = loraModule.wait('+JOIN: Done',12)
+
+  loraModule.send('AT+ID')
+
+while True:
+  for loraModule in [loraModule1, loraModule2]:
+    loraModule.send('AT+MSGHEX="6162636465"')
+    loraModule.wait('MSGHEX: Done', 10)
+
+\end{minted}

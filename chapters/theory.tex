@@ -1,14 +1,14 @@
 % Theoretical background
 
-\chapter{Theoretical background} \label{ch:theor_backgr}
+\chapter{Theoretical Background} \label{ch:theor_backgr}
 
-This project is developed on top of another students final year project \cite{theseus:gere-zoltan} to automate the tasks that are required in the beginning of each course that uses their implementation.
+This project was developed on top of another student's final year project \cite{theseus:gere-zoltan} to automate the tasks that are required in the beginning of each course that uses their implementation.
 Their solution provided the \gls{lora} end device, ChirpStack network server and LORIX One Gateway as starting tools.
 The following section is a walk-through of the features ChirpStack server's web-interface provides and how it is used without the implementation of automation this project provides.
 The starting point of this walk-through occurs after the server has been set up and configured.
 
-The end devices that the students use are added to an application in ChirpStack server.
-The server has clear \gls{ui} which is opened to the Applications page when the user logs in as seen in Figure~\ref{fig:ChirpStack_application_list}.
+The end devices that the students use are added to an application in the ChirpStack server.
+The server has a clear \gls{ui} which is opened to the Applications page when the user logs in as seen in Figure~\ref{fig:ChirpStack_application_list}.
 
 \begin{figure}[ht]
   \centering
@@ -18,47 +18,56 @@ The server has clear \gls{ui} which is opened to the Applications page when the 
 \end{figure}
 
 The page layout provides a sidebar that can be hidden from view with an arrow button next to the ChirpStack logo.
-The sidebar consists of 2 sections.
-The first section contains 4 buttons: Network-servers, Gateway-profiles, Organizations, and All users
-The second section includes a drop-down list to select an organization and 7 additional buttons: Org. settings, Org. users, Service-profiles, Device-profiles, Gateways, Applications, and Multicast-groups.
+The sidebar consists of two sections.
+The first section contains four buttons: Network-servers, Gateway-profiles, Organizations, and All users
+The second section includes a drop-down list to select an organization and seven additional buttons: Org. settings, Org. users, Service-profiles, Device-profiles, Gateways, Applications, and Multicast-groups.
 Each button corresponds to a specific category or feature.
 Clicking on any of these buttons navigates the user to a dedicated page or section displaying a list of elements associated with that category.
 Each element in the list is hyperlinked to provide easy access to its details, allowing users to view and modify the information they have previously provided during creation or addition to the list.
-Now, moving on to explore the layout and features of each button individually.
+Next, moving the layout and features of each button are discussed individually.
 
-Network-servers displays the added network servers, providing their names and server details in the hostname:port format.
-Users can click the Add button to create a new network server to the list.
+\section{Network-servers}
+Network-servers display the added network servers, providing their names and server details in the hostname:port format.
+Users can click the "Add"--button to create a new network server to the list.
 When creating a new server, users must provide a server name and specify the server details, including the hostname and port in a single field, as mandatory fields.
 Additionally, users have the option to include additional features, such as enabling gateway discovery and providing \gls{ca} and \gls{tls} certificates, along with \gls{tls} keys for both ChirpStack Application Server to ChirpStack Network Server connection and vice versa, in the network server details.
 
+\section{Gateway-profiles}
 Gateway-profiles contains the added gateway-profiles.
-To create a new one, a user presses the add button and fills the mandatory fields of the enabled channels, which can be separated with commas, and by choosing a network-server from a drop-down list.
+To create a new one, a user presses the "Add"--button and fills the mandatory fields of the enabled channels, which can be separated with commas, and by choosing a network-server from a drop-down list.
 The gateway-profiles are not used in the courses the schools use the ChirpStack with, and the feature is also to be removed in ChirpStack's next major release, which is yet to have a release date.
 
+\section{Organizations}
 Organizations layout consists of the inserted organizations to the ChirpStack.
 The list view provides information of the organizations name, display name and it's possibility of having gateways.
-Those details are also to be filled if the user adds new organization from the Create button.
+Those details are also to be filled if the user adds new organization from the "Create"--button.
 
+\section{All users}
 All users consists of the users added to ChirpStack.
 List view shows the username, active status and admin privileges of the users.
-New user can be added from Create button by providing the mandatory fields of username, e-mail address and password. Additional details are the optional note field and permission tick boxes where can be selected if the user is active and give global admin privileges.
+New user can be added from "Create"--button by providing the mandatory fields of username, e-mail address and password. Additional details are the optional note field and permission tick boxes where can be selected if the user is active and give global admin privileges.
 
 When the user selects an organization from the second section's drop-down list they can check and modify the information on the layouts the rest of the buttons navigate to.
 
+\section{Org. settings}
 Org. settings is for updating the settings of the selected organization of the drop-down list.
 Adjustable information is the same ones that there are, when a new organization is created.
 
+\section{Org. users}
 Org. users is a layout where the users assigned to the selected organizations can be seen and new ones can be added.
 The list view shows the id of the user, their username and if the user has admin privilege on that organization.
 The username is a hyperlink that directs to a layout where the username is seen and organizations admin privilege can be granted or removed.
-The same layout provides a delete button to remove a user from the organization and an Update user button if changes to privilege has been made, and a Goto user button that directs to a similar layout to what All Users layout had for creating new user with fields populated with the details given upon user creation.
+The same layout provides a "Delete"--button to remove a user from the organization, and an "Update user"--button if changes to privilege has been made, and a "Goto user"--button that directs to a similar layout to what All Users layout had for creating new user with fields populated with the details given upon user creation.
+\clearpage
 
+\section{Service-profiles}
 Service-profiles layout provides a list of service-profiles names that are appended to the organization.
 The name is a hyperlink that leads to page where you can update it's details.
-When a new service-profile is added from the Create button a new layout opens.
+When a new service-profile is added from the "Create"--button a new layout opens.
 Service profile creation requires a service-profile name and a network server from a drop-down list of servers that are part of the organization.
 Additional details contain tickboxes to allowing to add gateway meta-data and to enable network geolocation and 3 fields to give the device-status request frequency, minimum allowed data-rate and maximum allowed data-rate.
 
+\section{Device-profiles}
 Device-profiles is otherwise similar to the service-profile layout with the difference of the form of adding or modifying a device profile.
 That form includes 5 tabs: general, join (\gls{otaa} / \gls{abp}), class-B, class-C and codec.
 General tab includes 2 mandatory text fields called device-profile name and Max \gls{eirp} and an optional text fields called Geolocation buffer \gls{ttl} (seconds). The view also has 3 mandatory drop-down list fields where the network-server, \gls{lorawan} \gls{mac} version and \gls{lorawan} Regional Parameters revision needs to be selected.
@@ -70,17 +79,20 @@ Class-B tab has one tick box which determines if the device supports Class-B.
 Class-C tab  has that same tick box, but for Class-C device support and also a mandatory incremental input field for Class-C confirmed downlink timeout.
 Codec tab provides optional drop-down list for selecting Payload codec.
 
+\section{Gateways}
 Gateways layout provides a list view of the gateways that are added to the selected organization. 
-It also delivers a Create button to add new gateways.
+It also delivers a "Create"--button to add new gateways.
 The list view has three items it shows of each gateway, the Name, Gateway ID, and Gateway activity (30d).
 The name is a hyperlink from where the gateway details can be accessed and modified.
 Gateway ID shows gives the user a fast way to check the ID of the gateway. 
 Gate activity (30d) provides a bar chart figure to have a quick overview of the frames that are sent and received in the last 30 days.
 More specified information of the frames is found from the gateway details, where both communication ways have their own charts.
 
+\section{Multicast-groups}
 Multicast-groups layout provides a list view of multicast-groups that are generated for the organization.
 This feature is not used by the school.
 
+\section{Applications}
 Applications layout is where the user ends up when they log in.
 The page includes a list view of the added applications on the organization that is chosen on the sidebar.
 Each item of the list is shown with its ID, name, service-profile and description.
@@ -88,11 +100,11 @@ Device name is a hyperlink that leads to the list of devices that are added to t
 From the Applications layout the user can either choose an existing application or create new one.
 Normally when a new course is organized the educator creates a new application for that class, and all the related and used \gls{lora} end devices are added to that.
 
-In order to create a new application the user (educator) clicks the create button from the application layout and a new view opens with a form that has three mandatory fields to fill, as shown in Figure~\ref{fig:ChirpStack_new_application}.
+In order to create a new application the user (educator) clicks the "Create"--button from the application layout and a new view opens with a form that has three mandatory fields to fill, as shown in Figure~\ref{fig:ChirpStack_new_application}.
 These fields are the application name, application description, and Service-profile of the application.
 The first two are text input fields and the third one is a drop-down list.
-After filling up the required information that the user clicks the create application button and the application is generated.
-The page then proceeds back to the list of application.
+After filling up the required information that the user clicks the "Create application"--button and the application is generated.
+The page then proceeds back to the list of applications.
 
 \begin{figure}[ht]
   \centering
@@ -101,13 +113,14 @@ The page then proceeds back to the list of application.
   \label{fig:ChirpStack_new_application}
 \end{figure}
 
+\subsection{Application}
 When the desired application is opened, a new layout with a list of current added devices for that application is shown.
 When a new application is opened, the device list is empty but visible.
 That layout is opened to the Devices heading which is one of the four available ones that an application contains.
 The other headers, which can be selected, are Application configuration, integrations and \gls{fuota}.
 Application configuration contains the current information of the application name and description.
 Those can be updated from there if needed.
-Integrations shows a list of added integrations and new ones can be included from there with a list of available ones on a drop-down list if create button is pressed there.
+Integrations shows a list of added integrations and new ones can be included from there with a list of available ones on a drop-down list if "Create"--button is pressed there.
 \gls{fuota} layout provides information about the Firmware Update Over the Air.
 This feature is not used in the classes the school provides and therefor not included in the project. 
 
@@ -121,7 +134,8 @@ For a user to add devices to the application certain information for that is req
   \label{fig:ChirpStack_application}
 \end{figure}
 
-When create button is pressed in the application layout the \gls{ui} opens a create form to connect the new device.
+\subsubsection{Device}
+When "Create"--button is pressed in the application layout the \gls{ui} opens a create form to connect the new device.
 This form has three sections, general, variables, and tags as seen on Figure~\ref{fig:ChirpStack_new_device}.
 For this project only the general section needs to be focused on.
 The General section has four mandatory fields.
@@ -134,6 +148,8 @@ Lastly the device-profile is selected from a drop-down list.
 The ChirpStack's layout also provides the possibility to generate a random ID for the device \gls{eui}, to toggle the byte order of it, and to check a box that disables the frame-counter validation.
 These features are not used in the project.
 
+\clearpage
+
 \begin{figure}[ht]
   \centering
   {\includegraphics[width=\textwidth]{illustration/ChirpStack_new_device.png}}
@@ -141,10 +157,10 @@ These features are not used in the project.
   \label{fig:ChirpStack_new_device}
 \end{figure}
 
-After required information is given,the user clicks Create Device button.
+After required information is given,the user clicks "Create device"--button.
 This process creates and adds the device to the application and the page uploads a layout of the device's Keys (\gls{otaa}) information as seen on Figure~\ref{fig:ChirpStack_new_device_2}.
 The mandatory application key can also be accessed from the main.py file.
-After key information is given the user clicks the Set device keys button and the page uploads back to the opened application layout.
+After key information is given the user clicks the "Set device keys"--button and the page uploads back to the opened application layout.
 From the list view the user can find the just added device.
 
 When a device is opened from the hyperlink on its name the details tab is opened.
@@ -158,18 +174,20 @@ Details shows the name and description of the opened device and a hyperlink to t
 The hyperlink leads to the general configuration page of that device-profile.
 Status textbox has a Last seen at field that provides the information of the latest time that the device has been connected on the application.
 Enqueue downlink payload provides possibility to transmit data to a queue from where it is sent to the \gls{lora} device. For this to happen, the user needs to give a port number and a Base64 encoded string or a JSON object and they can also tick a box  that the downlink is confirmed.
-Downlink queue shows  a list of the downlinks that are on the queue while providing the main informations about them in four columns.
+Downlink queue shows  a list of the downlinks that are on the queue while providing the main information about them in four columns.
 The downlink features are not used in the courses currently.
 
-Configuration layout is the same one as when the user had clicked the create button on the application's devices header \ref{fig:ChirpStack_new_device}.
+Configuration layout is the same one as when the user had clicked the "Create"--button on the application's devices header \ref{fig:ChirpStack_new_device}.
 From there the user can modify the general details of the device if wanted.
-If this is done the new information is saved by pressing the update device button.
+If this is done the new information is saved by pressing the "Update device"--button.
 When the details are updated the page layout goes to Details tab where the modified data can be seen.
 
 Keys (\gls{otaa}) layout is the tab, which was opened when the first step of the creation was done.
 The text box has two fields, Application key and Gen application key.
 Application key is a mandatory field and Gen Application key is optional.
 The Application key can be accessed when a Python main.py file from the device is run.
+The Application key can either be unique or same with other device.
+What matters is that the key is defined to be the same in the \gls{lora} end device's Python script, which is used when the device is booted, and in the device details when the device is added.
 Gen Application key is only needed when the device implements remote multicast setup specification or \gls{fuota}.
 As neither of those features are not used in the implementation that field is left empty.
 
@@ -182,6 +200,7 @@ The other two fields show the Uplink frame-counter and Downlink frame-counter in
 Device data layout sends uplink information from the device when it is connected in 5 second intervals.
 If it is not activated the box instead shows a text "This device has not been (yet) activated".
 
+\clearpage
 
 \begin{figure}[ht]
   \centering

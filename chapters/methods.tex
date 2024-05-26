@@ -8,7 +8,7 @@ ChirpStack server's features are explained more thoroughly to understand what th
 Lastly the Robot Framework and it's structure and used libraries are introduced.
 
 \section{LoRaWAN}
-\gls{lorawan} is A networking protocol that is based on \gls{lora} and maintained by the \gls{lora} Alliance\cite{lora_alliance:about_lorawan}.
+\gls{lorawan} is a networking protocol that is based on \gls{lora} and maintained by the \gls{lora} Alliance\cite{loraAlliance:aboutLorawan}.
 It is specifically designed for low-power, battery-operated devices.
 \gls{lorawan} facilitates long-range communication between devices, extending up to 15 kilometers.
 This extended range proves invaluable in areas where devices are widely distributed, optimizing connectivity.
@@ -22,36 +22,43 @@ This low data rate feature not only conserves energy in battery-operated devices
 \gls{lorawan} networks boast scalability, accommodating a substantial number of devices.
 This scalability proves vital for \gls{iot} implementations that collect data from a diverse array of sensors.
 The adaptability to scale makes \gls{lorawan} well-suited for the dynamic and evolving nature of \gls{iot} deployments.
+Figure~\ref{fig:lorawan_network} provides understanding of a typical implementation of a \gls{lorawan} network
+
+\begin{figure}[ht]
+  \centering
+  {\includegraphics[width=\textwidth]{illustration/lorawan_network_implementation.png}}
+  \caption{An example implementation of a typical \gls{lorawan} network by Semtech\cite{semtech:loRaAndLoRaWAN}}
+  \label{fig:lorawan_network}
+\end{figure}
 
 In this project, \gls{lorawan} technology plays a significant role in wireless connectivity.
 The implementation involves LoRa end devices utilizing Over-The-Air Activation (OTAA) to establish connections with the LORIX One gateway.
-The gateway functions as a bridge and connects the devices to the Chirpstack \gls{lorawan} network server stack.
+The gateway functions as a bridge and connects the devices to the ChirpStack \gls{lorawan} network server stack.
 At the beginning of each course, the teacher initiates the creation of a new application on the server and the addition of devices to that application.
 This manual process, characterized by repetition, is targeted for automation to minimize the time commitment from educators.
 
 The integration of \gls{lorawan} not only optimizes connectivity in widely distributed educational settings but also capitalizes on its long-range capabilities, low data rate support, and scalability, making it an efficient solution for \gls{iot} applications within the project.
 \cite{lora-developer-portal:about}
-\todo{CHECK  (\cite{}) https://lora-developers.semtech.com/documentation/tech-papers-and-guides/lora-and-lorawan/ FOR POSSIBLE IDEAS FOR FIGURES RELATED TO LORAWAN}
 
 \section{LORIX One}
 LORIX One is a \gls{lorawan} gateway developed by Wifx\cite{wifx:lorixone}.
 The operating system that LORIX One uses is called LORIX OS and it is created particularly for LoRaWAN gateways.
-In this project LORIX One is used as a connector to transmit data between the \gls{iot} devices and the Chirpstack Network Server bidirectionally.
+In this project LORIX One is used as a connector to transmit data between the \gls{iot} devices and the ChirpStack Network Server bidirectionally.
 The Lorix One also runs the ChirpStack Gateway \gls{os}.
 
 \section{LoRA end device}
-\todo{The \gls{lora} end device, that is referred throughout the thesis,  consists of three parts: Raspberry Pico Board, \gls{lora} radio module and MicroPython.
-The device is implemented by a previous student in their thesis work\cite{theseus:gere-zoltan} and it is used by Metropolia University of Applied Sciences in some of the courses they offer for the students.}
+The \gls{lora} end device, that is referred throughout the thesis,  consists of three parts: Raspberry Pico Board, \gls{lora} radio module and MicroPython.
+The device is implemented by a previous student in their thesis work\cite{theseus:gere-zoltan} and it is used by Metropolia University of Applied Sciences in some of the courses they offer for the students.
 
 
-\todo{The \gls{lora} end device is used in this project for testing purposes.
-The device details are given to the excel file with some additional dummy ones.
+The \gls{lora} end device is used in this project for testing purposes.
+The device details are given to the Excel file with some additional dummy ones.
 The automation script provides a command to add the devices to the ChirpStack server and from the server it can be verified that when a device is powered, it is connected to the server and send data.
 This data can be seen by opening the corresponding tab of the device details.
 The school provided two Raspberry Pico boards and four \gls{lora} radio modules, as two modules can be attached to a a same board.
-}
 
-\section{Chirpstack}
+
+\section{ChirpStack}
 ChirpStack is a LoRaWAN network server stack.
 It is an open-source platform, which means the source code is freely accessible, enabling contributions and modifications from individuals. It allows anyone to engage in its development.
 The course runs the ChirpStack V3 with the limitation, that the LORIX One's \gls{os} does not support the latest version (V4).
@@ -61,31 +68,31 @@ The ChirpStack server's stack consists of 5 sections: ChirpStack Gateway Bridge,
 ChirpStack Gateway Bridge enables communication between the ChirpStack Network Server and \gls{lorawan} gateways.
 The gateway that is used in this project is the LORIX One.
 The \gls{lora} devices send \gls{lorawan} packets to the gateway, which forwards them to the ChirpStack Network Server using the \gls{lora} Packet Forwarder.
-The Chirpstack Gateway Bridge is given with 3 Packet Forwarder backends: ChirpStack Concentratord, Semtech UDP Packet Forwarder, and Basic Station Packet Forwarder.
+The ChirpStack Gateway Bridge is given with 3 Packet Forwarder backends: ChirpStack Concentratord, Semtech UDP Packet Forwarder, and Basic Station Packet Forwarder.
 These backends convert protocols into a common data format for the server.
 Additionally the Gateway Bridge provides 3 integrations for \gls{mqtt} protocols: a generic \gls{mqtt} broker, that can be used as a central hub for handling the \gls{mqtt} communication in a single network; the GCP Cloud IoT Core MQTT Bridge; and Azure IoT Hub MQTT Bridge.
 These \gls{mqtt} bridges enable communication to transmit messages and data between separate \gls{mqtt} networks or brokers alongside with other systems and platforms such as the \gls{lora} devices that are connected to the ChirpStack Network Server.
-\cite{chirpstack:gateway_bridge}
+\cite{chirpstack:gatewayBridge}
 
 \subsection{ChirpStack Network server}
 ChirpStack Network Server receives frames from the LORIX One gateway and removes any dublicates before processing them.
 The Network server handles the authentication, \gls{lorawan} \gls{mac}-layer operations, together with the \gls{mac}-commands, communication with the ChirpStack Application server and scheduling of the downlink frames sent to the \gls{lora} devices.
-\cite{chirpstack:network_server}
+\cite{chirpstack:networkServer}
 
 \subsection{ChirpStack Application Server}
 
 ChirpStack Application Server handles the join-requests and the process of handling and encrypting application payloads.
 It provides a web-interface and for connection with external services a \gls{grpc} and \gls{rest}ful \gls{api}.
-The web-interface and \gls{api} provide thev ability to manage users, organizations, applications and devices.
+The web-interface and \gls{api} provide the ability to manage users, organizations, applications and devices.
 The data from \gls{lora} devices can be sent and/or received over both \gls{mqtt}, and \gls{http} protocols, and by being  written directly into Influx\gls{db} system.
 The ChirpStack Application Server provides a feature that allows to test gateway network coverage by pinging, if the network contains multiple gateways.
 It also offers live possibilities for frame- and event-logging.
-\cite{chirpstack:application_server}
+\cite{chirpstack:applicationServer}
 
 \subsection{ChirpStack Concentratord}
-Chirpstack Concentratord is a \gls{lora}(WAN) concentrator daemon and is used by one or multiple application to collaborate with the gateway equipment by using an \gls{api} that is based to a universal messaging library called ZeroMQ.
-The source code is open-source, as the other components of the Chirpstack server stack.
-Chirpstack Concentratord handles the hardware specifics by applying and abstracting them through the \gls{api}.
+ChirpStack Concentratord is a \gls{lora}(WAN) concentrator daemon and is used by one or multiple application to collaborate with the gateway equipment by using an \gls{api} that is based to a universal messaging library called ZeroMQ.
+The source code is open-source, as the other components of the ChirpStack server stack.
+ChirpStack Concentratord handles the hardware specifics by applying and abstracting them through the \gls{api}.
 This allows the packet forwarding application to be divided from the gateway hardware.
 \cite{chirpstack:concentratord}
 
@@ -96,25 +103,20 @@ The ChirpStack gateway \gls{os} aims to ease the setup of the gateway by providi
 There are two different types of images the user can select from, the chirpstack-gateway-os-base and chirpstack-gateway-os-full.
 This project uses the full version, which differs from the base one by providing the full running enviroments of the ChirpStack Network and Application servers, which are not include in the base image.
 The \gls{os} can be accessed over \gls{ssh} by using any \gls{cli}.
-Figure~\ref{fig:ChirpStack_gateway_os}
-\cite{chirpstack:gateway_os}
+\cite{chirpstack:gatewayOS}
 
-\begin{figure}[ht]
-  \centering
-  {\includegraphics[width=\textwidth]{illustration/chirpstack_io_main_screen.PNG}}
-  \caption{interface layout of ChirpStack Gateway OS full, when the user has logged in}
-  \label{fig:ChirpStack_gateway_os}
-\end{figure}
 
 \section{Robot Framework}
 Robot Framework is an open-source framework supported by Robot Framework Foundation and can be used for test automation and \gls{rpa}.
 Robot Framework uses keywords that are in a human-readable format making its syntax easily accessible for technical and non-technical users.
 
+\clearpage
+
 The framework supports both data-driven and keyword-driven approaches for the implementations.
 In data-driven approach the logic is separated from the data which allows to use the logic easily with multiple different inputs or data sets and keyword-driven approach focuses on creating keywords that give summary of the actions that the robot performs and which makes the maintainability, and readability more straightforward.
 
 A Robot framework file's structure can contain 6 sections for the data: settings, variables, test cases, tasks, keywords and comments.
-The sections are recognized by their header row that has a *** Settings *** format, which header is case-insensitive. The header can be surrounded with spaces but it is not necessary and the asterisk characters amount can also be different, but the minimum requirement is to have at least one asterisk in the beginning.
+The sections are recognized by their header row that has a \textit{*** Settings ***} format, which header is case-insensitive. The header can be surrounded with whitespaces but it is not necessary and the asterisk characters amount can also be different, but the minimum requirement is to have at least one asterisk in the beginning.
 The headers can also contain other data besides the section header, but that data needs to be separated with the data format dependent separator.
 That kind of extra headers are usually used for documenting.
 
@@ -158,6 +160,7 @@ Dialogs is part of the Standard Library and provides keywords to interact with t
 Collections library is part of Robot Framework's Standard Library.
 The Collections library consists of keywords that can handle Python list and dictionaries.
 The keywords can for example add or remove things from a list or dictionary, or search if a value is found from a list or dictionary.
+\cite{robotFramework:collectionsLibrary}
 
 \subsection{Browser Library}
 Browser library is a Robot Framework library that delivers keywords for browser automation.
@@ -167,7 +170,7 @@ Additionally, it includes keywords for waiting until certain elements are loaded
 \cite{robotFramework:browserLibrary}
 
 \subsection{\gls{rpa} Framework}
-Robocorp sponsors a  project called \gls{rpa} Framework, which is a collection of tools and libraries that can be used for \gls{rpa}.
+Robocorp sponsors a  project called \gls{rpa} Framework, which is a collection of tools and libraries that can be used for \gls{rpa}\cite{robotFramwework:rpaFramework}.
 The libraries are released under an open-source license.
 Both the libraries and tools can be used with Robot Framework or Python.
 This project uses one of the libraries from the collection, the RPA.Excel.Files.
