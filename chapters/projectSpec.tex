@@ -17,11 +17,11 @@ Excel worksheets consists of cells that are indexed to certain rows and columns.
 This enables a large variation of possibilities to form the structure.
 It was agreed to have one sheet as a container for each application to simplify the layout design.
 
-The manual work that was decided to automate consists of interaction with the ChirpStack's web-interface.
+The manual work that was decided to automate consists of interaction with the web-interface of ChirpStack.
 Tasks that the automation handles were discussed and following tasks were chosen to be implemented: Application creation, adding devices to application, removing application and removing one device from application.
 Following sections explains what each task does when the implementation is in place.
 
-Application creation creates a new application, using the name, description and service-profile's name given in the spreadsheet.
+Application creation creates a new application, using the name, description and the name of the service-profile given in the spreadsheet.
 After the application is created it adds all the listed devices from that spreadsheet to the application, providing them the device name, device description, device \gls{eui}, device-profile and application key.
 
 Adding devices to application task is for already existing applications in the ChirpStack server.
@@ -36,7 +36,7 @@ Removing one device from application deletes the selected device from the select
 The automation should take in consideration possible scenarios where things might go wrong, to avoid errors when executing the tasks.
 These scenarios could be something from invalid user input to issues with slow connection on the server that causes timeouts when the code is run.
 
-The project's automation was selected to be implemented by using the Robot Framework for its broad possibilities to be developed and maintained further if needed, the possibilities of cross platform development and for its rich ecosystem, that eases the previous reasons by providing active support from the community, forums and other resources.
+The automation of the  project was selected to be implemented by using the Robot Framework for its broad possibilities to be developed and maintained further if needed, the possibilities of cross platform development and for its rich ecosystem, that eases the previous reasons by providing active support from the community, forums and other resources.
 To use Robot Framework, it needs to be considered what libraries are beneficial to generate the tasks for the automation.
 
 

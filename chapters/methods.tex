@@ -3,9 +3,9 @@
 \chapter{Material and Methods} \label{ch:mat_met}
 
 This chapter offers more information about the materials and methods that were used in the implementation of the project.
-The chapter provides better understanding of what \gls{lorawan} is and how it is used between the Lorix One gateway and \gls{lora} end devices.
-ChirpStack server's features are explained more thoroughly to understand what the stack consists of. 
-Lastly the Robot Framework and it's structure and used libraries are introduced.
+The chapter provides better understanding of what \gls{lorawan} is and how it is used between the LORIX One gateway and \gls{lora} end devices.
+The features of the ChirpStack server are explained more thoroughly to understand what the stack consists of. 
+Lastly, the Robot Framework and its structure and used libraries are introduced.
 
 \section{LoRaWAN}
 \gls{lorawan} is a networking protocol that is based on \gls{lora} and maintained by the \gls{lora} Alliance\cite{loraAlliance:aboutLorawan}.
@@ -22,7 +22,7 @@ This low data rate feature not only conserves energy in battery-operated devices
 \gls{lorawan} networks boast scalability, accommodating a substantial number of devices.
 This scalability proves vital for \gls{iot} implementations that collect data from a diverse array of sensors.
 The adaptability to scale makes \gls{lorawan} well-suited for the dynamic and evolving nature of \gls{iot} deployments.
-Figure~\ref{fig:lorawan_network} provides understanding of a typical implementation of a \gls{lorawan} network
+Figure~\ref{fig:lorawan_network} provides information of a typical implementation of a \gls{lorawan} network
 
 \begin{figure}[ht]
   \centering
@@ -31,7 +31,7 @@ Figure~\ref{fig:lorawan_network} provides understanding of a typical implementat
   \label{fig:lorawan_network}
 \end{figure}
 
-In this project, \gls{lorawan} technology plays a significant role in wireless connectivity.
+In this project, the \gls{lorawan} technology plays a significant role in wireless connectivity.
 The implementation involves LoRa end devices utilizing Over-The-Air Activation (OTAA) to establish connections with the LORIX One gateway.
 The gateway functions as a bridge and connects the devices to the ChirpStack \gls{lorawan} network server stack.
 At the beginning of each course, the teacher initiates the creation of a new application on the server and the addition of devices to that application.
@@ -42,27 +42,27 @@ The integration of \gls{lorawan} not only optimizes connectivity in widely distr
 
 \section{LORIX One}
 LORIX One is a \gls{lorawan} gateway developed by Wifx\cite{wifx:lorixone}.
-The operating system that LORIX One uses is called LORIX OS and it is created particularly for LoRaWAN gateways.
-In this project LORIX One is used as a connector to transmit data between the \gls{iot} devices and the ChirpStack Network Server bidirectionally.
-The Lorix One also runs the ChirpStack Gateway \gls{os}.
+The \gls{os} that LORIX One uses is called LORIX OS, and it is created particularly for \gls{lorawan} gateways.
+In this project, LORIX One is used as a connector to transmit data between the \gls{iot} devices and the ChirpStack Network Server bidirectionally.
+LORIX One also runs the ChirpStack Gateway \gls{os}.
 
 \section{LoRA end device}
-The \gls{lora} end device, that is referred throughout the thesis,  consists of three parts: Raspberry Pico Board, \gls{lora} radio module and MicroPython.
-The device is implemented by a previous student in their thesis work\cite{theseus:gere-zoltan} and it is used by Metropolia University of Applied Sciences in some of the courses they offer for the students.
+The \gls{lora} end device that is referred to throughout the thesis,  consists of three parts: Raspberry Pico Board, \gls{lora} radio module and MicroPython.
+The device was implemented by another student in their final year project\cite{theseus:gere-zoltan} and it is used by Metropolia University of Applied Sciences in some of the courses they offer for the students.
 
 
 The \gls{lora} end device is used in this project for testing purposes.
-The device details are given to the Excel file with some additional dummy ones.
-The automation script provides a command to add the devices to the ChirpStack server and from the server it can be verified that when a device is powered, it is connected to the server and send data.
+The device details were listed to the Excel file with some additional dummy ones.
+The automation script provides a command to add the devices to the ChirpStack server and from the server it can be verified that when a device is powered, it is connected to the server and sends data.
 This data can be seen by opening the corresponding tab of the device details.
-The school provided two Raspberry Pico boards and four \gls{lora} radio modules, as two modules can be attached to a a same board.
+The school provided two Raspberry Pico boards and four \gls{lora} radio modules as two modules can be attached to a a same board.
 
 
 \section{ChirpStack}
 ChirpStack is a LoRaWAN network server stack.
 It is an open-source platform, which means the source code is freely accessible, enabling contributions and modifications from individuals. It allows anyone to engage in its development.
-The course runs the ChirpStack V3 with the limitation, that the LORIX One's \gls{os} does not support the latest version (V4).
-The ChirpStack server's stack consists of 5 sections: ChirpStack Gateway Bridge, ChirpStack Network server, ChirpStack Application Server, ChirpStack Concentratord, and ChirpStack Gateway \gls{os}.
+The course runs the ChirpStack V3 with the limitation, that the LORIX One \gls{os} does not support the latest version (V4).
+The stack of ChirpStack server consists of 5 sections: ChirpStack Gateway Bridge, ChirpStack Network server, ChirpStack Application Server, ChirpStack Concentratord, and ChirpStack Gateway \gls{os}.
 
 \subsection{ChirpStack Gateway Bridge}
 ChirpStack Gateway Bridge enables communication between the ChirpStack Network Server and \gls{lorawan} gateways.
@@ -115,7 +115,7 @@ Robot Framework uses keywords that are in a human-readable format making its syn
 The framework supports both data-driven and keyword-driven approaches for the implementations.
 In data-driven approach the logic is separated from the data which allows to use the logic easily with multiple different inputs or data sets and keyword-driven approach focuses on creating keywords that give summary of the actions that the robot performs and which makes the maintainability, and readability more straightforward.
 
-A Robot framework file's structure can contain 6 sections for the data: settings, variables, test cases, tasks, keywords and comments.
+The structure of a Robot framework file can contain 6 sections for the data: settings, variables, test cases, tasks, keywords and comments.
 The sections are recognized by their header row that has a \textit{*** Settings ***} format, which header is case-insensitive. The header can be surrounded with whitespaces but it is not necessary and the asterisk characters amount can also be different, but the minimum requirement is to have at least one asterisk in the beginning.
 The headers can also contain other data besides the section header, but that data needs to be separated with the data format dependent separator.
 That kind of extra headers are usually used for documenting.
@@ -157,7 +157,7 @@ Dialogs is part of the Standard Library and provides keywords to interact with t
 \cite{robotFramework:dialogsLibrary}
 
 \subsubsection{Collections Library}
-Collections library is part of Robot Framework's Standard Library.
+Collections library is part of Standard Library of Robot Framework.
 The Collections library consists of keywords that can handle Python list and dictionaries.
 The keywords can for example add or remove things from a list or dictionary, or search if a value is found from a list or dictionary.
 \cite{robotFramework:collectionsLibrary}

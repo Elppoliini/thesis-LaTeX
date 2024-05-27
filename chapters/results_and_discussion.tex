@@ -14,7 +14,7 @@ The implementation fulfills all of the requirements that were set in the beginni
 The end result provides the user a way to handle the tasks more effectively than previously by reducing the possible human errors in writing and by speeding up the process.
 As the implementation can be executed repeatedly, when the settings and other factors are still the same, it can potentially save a lot of time from the educators.
 
-The implementation's effectiveness has been tested by comparing the workload of adding a new application with a set of devices to the server either manually or by using the implementation.
+The effectiveness of the implementation has been tested by comparing the workload of adding a new application with a set of devices to the server either manually or by using the implementation.
 The testing also took in consideration about the difference if the browser is run headless or with the visible window.
 The manual part was implemented by using the same Excel file where the details where added, and that was applied by writing all the details fully manually and by using the copy-paste method to speed things up a bit.
 The test is only done by one person, therefore the writing speed is a changing factor and the time measuring is not as specific, as it would be if the time would be measured by an other person, or a computer.
@@ -369,7 +369,7 @@ The challenges that were faced during the project consisted of different kind of
 The most common ones would be trying to find errors that were faced during the testing of the features.
 Most difficult ones to spot relating to that turned out to be the ones where syntax errors were occurring in the Robot Framework script, and incorrect amount of whitespace in different keywords.
 
-The Lorix One gateway also provided some extra obstacles.
+The LORIX One gateway also provided some extra obstacles.
 During testing, the web-interface started to refuse the connection and testing needed to be paused.
 In the beginning this was handled by rebooting the server and it fixed the problem.
 The reason for this was not found.
@@ -398,7 +398,7 @@ After that the issue never came back, so there was no further investigation.
 
 Overall these server obstacles slowed down the project implementation with several days.
 Further investigation should be considered if the problems continue.
-This might require to take some actions, like updating the software versions, or even to change the hardware that is used, as most of the challenges were reflected to the use of the Lorix One gateway.
+This might require to take some actions, like updating the software versions, or even to change the hardware that is used, as most of the challenges were reflected to the use of the LORIX One gateway.
 The consideration should also take in account the load the gateway has been under during the testing.
 The implementation is most likely not used as heavily in such short-term , as it has during the testing phases.
 
@@ -411,7 +411,7 @@ The implementation relies completely on the web-interface of the ChirpStack Appl
 The variables are created by using the selectors of the elements in the web-interface and they are hard-coded to the variables.py file.
 If any changes to the web-interface is made, it might lead to breaking the Robot Framework script, or at least to a large amount of redefinition of the variables and possibly the keywords as well.
 
-The Lorix One gateway only supports the ChirpStack up to the version 3, and all the implementation is also based to that version.
+The LORIX One gateway only supports the ChirpStack up to the version 3, and all the implementation is also based to that version.
 The most latest version of the ChirpStack is currently version 4.
 If the gateway hardware, or the ChirpStack version is to be updated, it might make the implementation incompatible.
 
@@ -423,14 +423,14 @@ If the amount of those applications or devices is greater than 100, the ones tha
 Currently the rows per page amount is set in the suite setup and the selected row amount is automatically set to it in every list type in the web-interface.
 This should be changed in the next possible update to make the implementation more reliable.
 
-The Robot Framework script's running time, when multiple devices are added, could possibly be further reduced by handling all the message pop-ups that the device creation triggers.
+The running time of the Robot Framework script, when multiple devices are added, could possibly be further reduced by handling all the message pop-ups that the device creation triggers.
 Currently it verifies that there is no message about duplicate device, but on a successful device creation there is a device created message as well. 
 This message leads to extra waiting time as the script recognizes it to one of the pop-ups and starts the timeout which delays the running time.
 This issue could be solved for example by closing the device created pop-up, whenever it is triggered.
 
 Robocorp announced the joining to Sema4.ai on the end of January \cite{robocorp:sema4.ai}.
 In the following month they published that they are focusing to develop the automation further only in Python language.
-The implementation is currently using RPA Framework's Excel.Files library to interact with the Excel files, using Robot Framework.
+The implementation is currently using the Excel.Files library of RPA Framework to interact with the Excel files, using Robot Framework.
 The new direction Robocorp is taking with the code focused automation means that the existing Robot Framework based libraries are being spared, but no new updates or issue fixes are done in regards to them.
 In practise this affects the upcoming development, which should be considered if this project is to be further developed.
 
