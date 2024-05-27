@@ -73,42 +73,42 @@ Additional details contain tickboxes to allowing to add gateway meta-data and to
 In addition 3 fields can be ticked to give the device-status request frequency, minimum allowed data-rate and maximum allowed data-rate.
 
 \section{Device-profiles}
-Device-profiles is otherwise similar to the service-profile layout with the difference of the form of adding or modifying a device profile.
-That form includes 5 tabs: general, join (\gls{otaa} / \gls{abp}), class-B, class-C and codec.
-General tab includes 2 mandatory text fields called device-profile name and Max \gls{eirp} and an optional text fields called Geolocation buffer \gls{ttl} (seconds). The view also has 3 mandatory drop-down list fields where the network-server, \gls{lorawan} \gls{mac} version and \gls{lorawan} Regional Parameters revision needs to be selected.
-The form also contains a field where Geolocation buffer \gls{ttl} can be selected.
+Device-profiles is otherwise similar to the Service-profiles layout with the difference of the form of adding or modifying a device profile.
+That form includes five tabs: general, join (\gls{otaa} / \gls{abp}), class-B, class-C and codec.
+The general tab includes two mandatory text fields called Device-profile name and Max \gls{eirp} and an optional text field called Geolocation buffer \gls{ttl} (seconds). The view also has three mandatory drop-down list fields where the network-server, \gls{lorawan} \gls{mac} version and \gls{lorawan} Regional Parameters revision needs to be selected.
+The form also contains a field where the Geolocation buffer \gls{ttl} can be selected.
 A device profile can already be created after filling the general information, but if other features are to be added, all mandatory fields from that tab's layout needs to be filled.
-Join (\gls{otaa} / \gls{abp}) tab has a tick box from where the user can select if the device supports \gls{otaa}.
-Rest of the fields are mandatory and consist of 4 incremental input fields called RX1 delay, RX1 data-rate offset, RX2 data-rate, RX2 channel frequency (Hz), and a regular text field called Factory-preset frequencies (Hz).
-Class-B tab has one tick box which determines if the device supports Class-B.
-Class-C tab  has that same tick box, but for Class-C device support and also a mandatory incremental input field for Class-C confirmed downlink timeout.
-Codec tab provides optional drop-down list for selecting Payload codec.
+The join (\gls{otaa} / \gls{abp}) tab has a tick box from where the user can select if the device supports \gls{otaa}.
+The rest of the fields are mandatory and consist of four incremental input fields called RX1 delay, RX1 data-rate offset, RX2 data-rate, RX2 channel frequency (Hz), and a regular text field called Factory-preset frequencies (Hz).
+The Class-B tab has one tick box which determines if the device supports Class-B.
+The Class-C tab  has the same tick box, but for Class-C device support and also a mandatory incremental input field for Class-C confirmed downlink timeout.
+The Codec tab provides an optional drop-down list for selecting the Payload codec.
 
 \section{Gateways}
-Gateways layout provides a list view of the gateways that are added to the selected organization. 
-It also delivers a "Create"--button to add new gateways.
+The Gateways layout provides a list view of the gateways that are added to the selected organization. 
+It also delivers a Create button to add new gateways.
 The list view has three items it shows of each gateway, the Name, Gateway ID, and Gateway activity (30d).
 The name is a hyperlink from where the gateway details can be accessed and modified.
-Gateway ID shows gives the user a fast way to check the ID of the gateway. 
+The Gateway ID gives the user a fast way to check the ID of the gateway. 
 Gate activity (30d) provides a bar chart figure to have a quick overview of the frames that are sent and received in the last 30 days.
-More specified information of the frames is found from the gateway details, where both communication ways have their own charts.
+More specified information of the frames is found in the gateway details, where both communication ways have their own charts.
 
 \section{Multicast-groups}
-Multicast-groups layout provides a list view of multicast-groups that are generated for the organization.
+The Multicast-groups layout provides a list view of multicast-groups that are generated for the organization.
 This feature is not used by the school.
 
 \section{Applications}
-Applications layout is where the user ends up when they log in.
+The Applications layout is where the user ends up when they log in.
 The page includes a list view of the added applications on the organization that is chosen on the sidebar.
 Each item of the list is shown with its ID, name, service-profile and description.
-Device name is a hyperlink that leads to the list of devices that are added to the application, and the service-profile is a hyperlink that leads to the service-profile's modifying page.
+The Device name is a hyperlink that leads to the list of devices that are added to the application, and the service-profile is a hyperlink that leads to the service-profile's modifying page.
 From the Applications layout the user can either choose an existing application or create new one.
-Normally when a new course is organized the educator creates a new application for that class, and all the related and used \gls{lora} end devices are added to that.
+Normally when a new course is organized, the educator creates a new application for that class, and all the related and used \gls{lora} end devices are added to that.
 
-In order to create a new application the user (educator) clicks the "Create"--button from the application layout and a new view opens with a form that has three mandatory fields to fill, as shown in Figure~\ref{fig:ChirpStack_new_application}.
+In order to create a new application, the user (educator) clicks the Create button on the application layout and a new view opens with a form that has three mandatory fields to fill, as shown in Figure~\ref{fig:ChirpStack_new_application}.
 These fields are the application name, application description, and Service-profile of the application.
 The first two are text input fields and the third one is a drop-down list.
-After filling up the required information that the user clicks the "Create application"--button and the application is generated.
+After filling in the required information that the user clicks, the Create application button and the application are generated.
 The page then proceeds back to the list of applications.
 
 \begin{figure}[ht]
@@ -118,38 +118,37 @@ The page then proceeds back to the list of applications.
   \label{fig:ChirpStack_new_application}
 \end{figure}
 
-\subsection{Application}
 When the desired application is opened, a new layout with a list of current added devices for that application is shown.
 When a new application is opened, the device list is empty but visible.
 That layout is opened to the Devices heading which is one of the four available ones that an application contains.
 The other headers, which can be selected, are Application configuration, integrations and \gls{fuota}.
-Application configuration contains the current information of the application name and description.
-Those can be updated from there if needed.
-Integrations shows a list of added integrations and new ones can be included from there with a list of available ones on a drop-down list if "Create"--button is pressed there.
-\gls{fuota} layout provides information about the Firmware Update Over the Air.
-This feature is not used in the classes the school provides and therefor not included in the project. 
+Application configuration contains the current information of the application name and description, which both can be updated from there if needed.
+Integrations shows a list of added integrations and new ones can be included with a list of available ones on a drop-down list if Create button is pressed there.
+The \gls{fuota} layout provides information about the Firmware Update Over the Air.
+This feature is not used in the classes the school provides and, therefore, was not included in the project. 
 
-The device list shows each linked device provided with the information of when it is last seen, what are the device name and the device \gls{eui}, Link margin of the device and the latest information about the battery as seen in Figure~\ref{fig:ChirpStack_application}.
+The device list shows each linked device provided with the information of when it is last seen, what are the device name and the device \gls{eui}.
+It also shows the Link margin of the device and the latest information about the battery of each device as seen in Figure~\ref{fig:ChirpStack_application}.
 For a user to add devices to the application certain information for that is required.
 
 \begin{figure}[ht]
   \centering
   {\includegraphics[width=\textwidth]{illustration/ChirpStack_application.png}}
-  \caption{List of devices attached on application on a ChirpStack network server.}
+  \caption{List of devices attached on an application on a ChirpStack network server.}
   \label{fig:ChirpStack_application}
 \end{figure}
 
 \subsubsection{Device}
-When "Create"--button is pressed in the application layout the \gls{ui} opens a create form to connect the new device.
-This form has three sections, general, variables, and tags as seen on Figure~\ref{fig:ChirpStack_new_device}.
+When Create button is pressed in the application layout the \gls{ui} opens a create form to connect the new device.
+This form has three sections, general, variables, and tags as seen in Figure~\ref{fig:ChirpStack_new_device}.
 For this project only the general section needs to be focused on.
 The General section has four mandatory fields.
 In order to proceed to the next step, device name, device description, device \gls{eui} and device-profile must be filled.
-Device name and description are decided by the educator.
-Device name can be used on multiple applications, but only once in one application
+The Device name and description are decided by the educator.
+Device name can be used on multiple applications, but only once in one application.
 Device \gls{eui} can be found when the device is turned on and a Python script main.py is run.
-The \gls{eui} is unique and therefor there can only be one device for each \gls{eui}.
-Lastly the device-profile is selected from a drop-down list.
+The \gls{eui} is unique and therefore there can only be one device for each \gls{eui}.
+Lastly, the device-profile is selected from a drop-down list.
 The ChirpStack's layout also provides the possibility to generate a random ID for the device \gls{eui}, to toggle the byte order of it, and to check a box that disables the frame-counter validation.
 These features are not used in the project.
 
@@ -162,48 +161,48 @@ These features are not used in the project.
   \label{fig:ChirpStack_new_device}
 \end{figure}
 
-After required information is given,the user clicks "Create device"--button.
-This process creates and adds the device to the application and the page uploads a layout of the device's Keys (\gls{otaa}) information as seen on Figure~\ref{fig:ChirpStack_new_device_2}.
+After the required information is given, the user clicks on Create device button.
+This process creates and adds the device to the application and the page uploads a layout of the device's Keys (\gls{otaa}) information as seen in Figure~\ref{fig:ChirpStack_new_device_2}.
 The mandatory application key can also be accessed from the main.py file.
-After key information is given the user clicks the "Set device keys"--button and the page uploads back to the opened application layout.
-From the list view the user can find the just added device.
+After key information is given, the user clicks the Set device keys button and the page uploads back to the opened application layout.
+From the list view, the user can find the just added device.
 
-When a device is opened from the hyperlink on its name the details tab is opened.
-The opened device has seven tab headers in total, that are the current details, Keys (\gls{otaa}), activation, device data, \gls{lorawan} frames, and firmware.
+When a device is opened by clicking on the hyperlink on its name the details tab is opened.
+The opened device has seven tab headers in total that are the current details, keys (\gls{otaa}), activation, device data, \gls{lorawan} frames, and firmware.
 Next the information about the content of those tabs is explained.
 
-Details layout has four text boxes called Details, Status, Enqueue downlink payload, and Downlink queue.
-Details and Status boxes are visible all the time after a device is added to the application but the Enqueue downlink payload and Downlink queue only become visible after the device has been connected to the server for the first time.
+The Details layout has four text boxes called Details, Status, Enqueue downlink payload, and Downlink queue.
+The Details and Status boxes are visible all the time after a device is added to the application but the Enqueue downlink payload and Downlink queue only become visible after the device has been connected to the server for the first time.
 
 Details shows the name and description of the opened device and a hyperlink to the Device-profile that has been selected for it.
 The hyperlink leads to the general configuration page of that device-profile.
-Status textbox has a Last seen at field that provides the information of the latest time that the device has been connected on the application.
-Enqueue downlink payload provides possibility to transmit data to a queue from where it is sent to the \gls{lora} device. For this to happen, the user needs to give a port number and a Base64 encoded string or a JSON object and they can also tick a box  that the downlink is confirmed.
-Downlink queue shows  a list of the downlinks that are on the queue while providing the main information about them in four columns.
+The Status textbox has a Last seen at field that provides the information of the latest time that the device has been connected on the application.
+Enqueue downlink payload feature provides possibility to transmit data to a queue from where it is sent to the \gls{lora} device. For this to happen, the user needs to give a port number and a Base64 encoded string or a JSON object and the user can also tick a box if the downlink is confirmed.
+The Downlink queue shows  a list of the downlinks that are on the queue while providing the main information about them in four columns.
 The downlink features are not used in the courses currently.
 
-Configuration layout is the same one as when the user had clicked the "Create"--button on the application's devices header \ref{fig:ChirpStack_new_device}.
+The Configuration layout is the same one as when the user had clicked the Create button on the application's devices header to create a new device as seen previously in Figure~\ref{fig:ChirpStack_new_device}.
 From there the user can modify the general details of the device if wanted.
-If this is done the new information is saved by pressing the "Update device"--button.
-When the details are updated the page layout goes to Details tab where the modified data can be seen.
+If this is done, the new information is saved by pressing the Update device button.
+When the details are updated, the page layout goes to the Details tab where the modified data can be seen.
 
-Keys (\gls{otaa}) layout is the tab, which was opened when the first step of the creation was done.
+The Keys (\gls{otaa}) layout is the tab, which was opened when the first step of the creation was done.
 The text box has two fields, Application key and Gen application key.
-Application key is a mandatory field and Gen Application key is optional.
+The Application key is a mandatory field and Gen Application key is optional.
 The Application key can be accessed when a Python main.py file from the device is run.
-The Application key can either be unique or same with other device.
+The Application key can either be unique or the same with another device.
 What matters is that the key is defined to be the same in the \gls{lora} end device's Python script, which is used when the device is booted, and in the device details when the device is added.
-Gen Application key is only needed when the device implements remote multicast setup specification or \gls{fuota}.
-As neither of those features are not used in the implementation that field is left empty.
+The Gen Application key is only needed when the device implements remote multicast setup specification or \gls{fuota}.
+As neither of those features are used in the implementation, that field is left empty.
 
-Activation layout provides a textbox with five fields when the device has been connected to the server / activated.
-First field shows the Device address which is specified when the device has joined a network.
-Network session key and Application session key are masked.
+The Activation layout provides a textbox with five fields when the device has been connected to the server / activated.
+The First field shows the Device address which is specified when the device has joined a network.
+The Network session key and the Application session key are masked.
 The concealed information can be seen by pressing the key icons next to the next fields.
 The other two fields show the Uplink frame-counter and Downlink frame-counter information.
 
-Device data layout sends uplink information from the device when it is connected in 5 second intervals.
-If it is not activated the box instead shows a text "This device has not been (yet) activated".
+The Device data layout sends uplink information from the device when it is connected in five second intervals.
+If it is not activated, the box instead shows a text, "This device has not been (yet) activated".
 
 \clearpage
 
@@ -214,7 +213,7 @@ If it is not activated the box instead shows a text "This device has not been (y
   \label{fig:ChirpStack_new_device_2}
 \end{figure}
 
-Device can only be added once to the ChirpStack server and if it is tried to add another time to either the same application it already exists on or to a new one the process fails with an error message.
+The device can only be added once to the ChirpStack server, and if it is tried to add another time to either the same application it already exists on or to a new one, the process fails with an error message.
 
 %\cite{ChirpStack:devices}
 
