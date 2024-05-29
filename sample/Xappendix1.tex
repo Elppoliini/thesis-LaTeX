@@ -1,32 +1,33 @@
 % Appendix 
 % And demonstrate text references and bibliography references in appendix
 
-\chapter{Appendix}\label{appx:sourcecode}
+\chapter{Implementation Source Code}\label{appx:sourcecode}
 
-This Appendix provides the source code that has been implemented for the project.
+The first Appendix provides the source code that has been implemented for the project.
 Code is divided to sections by file names.
 More details about the functionality of the implementation can be found from Chapter~\ref{ch:impl}
 
 \section{variables.py}
 
-This file contains all the variables that are made using mainly the ChirpStack web-interface's elements.
-The elements are found by using the xpath selectors and in a few variables text of the elements as well, to recognize the correct element.
-In the beginning of the file also the url addresses, used browser and login details are defined.
-All variables in \path{variables.py} are defined by using uppercase letters, so that they can easily be recognized from other variables in the \path{__init__.robot} and \path{automation.robot} files.
+This file contains all the variables that are made using mainly the ChirpStack the elements of the web interface.
+The elements are found by using the xpath selectors.
+In a few variables text of the elements are also used to recognize the correct element.
+In the beginning of the file the \gls{url} addresses, used browser and login details are defined.
+All variables in \path{variables.py} are defined by using uppercase letters so that they can easily be recognized from other variables in the \path{__init__.robot} and \path{automation.robot} files.
 
-Sensitive details, meaning the IP addresses and login details, have been replaced with dummy ones.
-Some strings were too long to show in the pdf form, so they were splitted in smaller strings inside a variable.
-They still function as before, but this should be taken in consideration if the variables are to be modified.
+Sensitive details, referring to the IP addresses and login details, have been replaced with dummy ones.
+Some strings were too long to show in the \gls{pdf} form so they were split in smaller strings inside the variable.
+They still function as before but this should be taken into consideration if the variables are to be modified.
 All other variables are shown with the original values.
 
 \begin{minted}{python}
 #Variables for suite setup
-CHIRPSTACK_LOGIN_PAGE_URL = "http://192.168.1.134:8080/#/login"
+CHIRPSTACK_LOGIN_PAGE_URL = "http://192.168.1.1:8080/#/login"
 BROWSER = "chromium"
-APPLICATIONS_FRONTPAGE_URL = "http://192.168.1.134:8080/#/organizations/1/applications"
-USERNAME = "admin"
-PASSWORD = "admin"
-LOGIN_BUTTON = xpath="//*[@id=\"root\"]" "/div/div[1]/div/div/div/div/div[2]" "/form/div[3]/button/span[1]"
+APPLICATIONS_FRONTPAGE_URL = "http://192.168.1.1:8080/#/organizations/1/applications"
+USERNAME = "user123"
+PASSWORD = "password456"
+LOGIN_BUTTON = xpath="//*[@id=\"root\"]" "/div/div[1]/div/div/div/div/div[2]/form/div[3]/button/span[1]"
 ROW_AMOUNT_DROPDOWN = xpath="//*[@id=\"root\"]/div/div[2]/div/div/div[2]/div/div/div/div[2]/div"
 HUNDRED = xpath="//*[@id=\"menu-\"]/div[3]/ul/li[4]"
 
@@ -47,7 +48,7 @@ APPLICATIONS = "//*[@id=\"root\"]/div/div[2]/div/div/div[1]/div[1]/a >> text=App
 APPLICATION_NAME_FIELD = xpath="//*[@id=\"name\"]"
 APPLICATION_DESCRIPTION_FIELD = xpath="//*[@id=\"description\"]"
 SERVICE_PROFILE_DROPDOWN_LIST = xpath="//*[@id=\"react-select-serviceProfileID--value\"]/div[1]"
-CREATE_APPLICATION_BUTTON = xpath="//*[@id=\"root\"]" "/div/div[2]" "/div/div/div[2]" "/div/div/form/div[4]/button/span[2]"
+CREATE_APPLICATION_BUTTON = xpath="//*[@id=\"root\"]/div/div[2]" "/div/div/div[2]/div/div/form/div[4]/button/span[2]"
 DEVICES_IN_ELEMENTS_LISTS = xpath="//*[@id=\"root\"]/div/div[2]" "/div/div/div[3]" "/div/div[2]/div/table/tbody/tr"
 
 #Variables in opened application layout
@@ -66,7 +67,7 @@ DEVICE_DESCRIPTION_FIELD = xpath="//*[@id=\"description\"]"
 DEVICE_EUI_FIELD = xpath="//*[@id=\"devEUI\"]"
 DEVICE_PROFILE_DROPDOWN_LIST = xpath="//*[@id=\"react-select-deviceProfileID--value\"]/div[1]"
 
-CREATE_DEVICE_BUTTON = xpath="//*[@id=\"root\"]/div/div[2]" "/div/div/div[2]" "/div/div/form/div[3]/button/span[1]"
+CREATE_DEVICE_BUTTON = xpath="//*[@id=\"root\"]/div/div[2]" "/div/div/div[2]/div/div/form/div[3]/button/span[1]"
 APPLICATION_KEY_FIELD = xpath="//*[@id=\"nwkKey\"]"
 SET_DEVICE_KEYS_BUTTON = xpath="//*[@id=\"root\"]/div/div[2]" "/div/div/div[3]/div/div" "/div/div/form/div[3]/button/span[1]"
 
@@ -78,10 +79,10 @@ ALERT_MESSAGE = xpath="//*[@id=\"root\"]/div[2]"
 
 \section{\_\_init\_\_.robot}
 
-This file is used for initialization.
+The \path{__init__.robot} file is used for initialization.
 It includes the suite setup and suite teardown definitions that are before and after executing the \path{automation.robot} file.
 
-\begin{minted}{python}
+\begin{minted}{robotframework}
 *** Settings ***
 Library             Browser
 Library             BuiltIn
@@ -115,9 +116,9 @@ Set Amount of Rows per Page to Hundred
 \end{minted}
 
 \section{automation.robot}
-This file contains the main automation of the implementation.
+The \path{automation.robot} file contains the main automation of the implementation.
 
-\begin{minted}{python}
+\begin{minted}{robotframework}
 *** Settings ***
 Library         Browser
 Library         Dialogs
@@ -476,7 +477,7 @@ Open Application
     [Arguments]    ${application_element}
     Click    ${application_element}
 
-Remove Already Existing Application Names from Sheet options
+Remove Already Existing Application Names from Sheet Options
     [Documentation]
     ...    This keyword removes application names that are on given ${application_names} list
     ...    from a list of worksheets ${list_of_worksheets}.
@@ -531,7 +532,7 @@ Take User Input
     Log    ${command}
     IF    $command == "Create new Application"    # needs to be also in the Excel
         @{list_of_worksheets} =    List worksheets on Excel
-        Remove Already Existing Application Names from Sheet options
+        Remove Already Existing Application Names from Sheet Options
         ...    ${list_of_worksheets}
         ...    ${existing_application_names}
         ${list_size} =    Get Length    ${list_of_worksheets}
@@ -647,11 +648,15 @@ Update Existing Application Names
 
 \section{requirements.txt}
 
-\begin{minted}{python}
+The \path{requirements.txt} file provides the mandatory packages that were required in the project with the versions of installations.
+
+\begin{minted}{text}
 robotframework==6.1.1
 rpaframework==27.7.0
 robotframework-browser==18.4.0
 
 \end{minted}
+
+\clearpage
 
 

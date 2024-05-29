@@ -2,35 +2,36 @@
 
 \chapter{Results and Discussion} \label{ch:res_and_disc}
 
-This chapter describes the obstacles and insights what have been faced during the implementation of the project and how the results came out to be.
-It gives variations of what could have done differently and how the project can be improved in the future.
+This chapter describes the obstacles and insights that were faced during the implementation of the project and how the results came out to be.
+It gives variations of what could have been done differently and how the outcome could be improved in the future.
 The chapter also discusses the pros and cons about the current maintainability.
 
 \section{Results}
-The implementation of this project offers a script that automates the process of adding new applications with new devices to a ChirpStacks server from an Excel file, with addition to add devices to an application that is already on the server and listed in the Excel file.
+The implementation of this project offers a script that automates the process of adding new applications with new devices to a ChirpStack server from an Excel file, with addition to add devices to an application that is already on the server and listed in the Excel file.
 It also provides a possibility to delete single devices from the chosen application, as well as a possibility to delete an application with its devices from the server.
 
 The implementation fulfills all of the requirements that were set in the beginning of the project with the additional request for a feature to delete an application by using its name.
 The end result provides the user a way to handle the tasks more effectively than previously by reducing the possible human errors in writing and by speeding up the process.
-As the implementation can be executed repeatedly, when the settings and other factors are still the same, it can potentially save a lot of time from the educators.
+As the implementation can be executed repeatedly, when the settings and other factors are still the same, it can potentially save the educators' time considerably.
 
 The effectiveness of the implementation has been tested by comparing the workload of adding a new application with a set of devices to the server either manually or by using the implementation.
-The testing also took in consideration about the difference if the browser is run headless or with the visible window.
+The testing also took into consideration the difference if the browser is run headless or with the visible window.
 The manual part was implemented by using the same Excel file where the details where added, and that was applied by writing all the details fully manually and by using the copy-paste method to speed things up a bit.
-The test is only done by one person, therefore the writing speed is a changing factor and the time measuring is not as specific, as it would be if the time would be measured by an other person, or a computer.
+The test was only done by one person; therefore, the writing speed is a changing factor and the time measuring is not as specific as it would be if the time was measured by another person or a computer.
 
-Below there are three plots shown. Each one represents one test case. First one is to create an application with 5 devices in Figure\ref{fig:5_devices}, second with 20 devices in Figure\ref{fig:20_devices} and third with 45 devices in Figure\ref{fig:45_devices}.
-The time that has been used to select the command to create the application and then the wanted application is excluded from the time measurements.
+Below there are three plots shown. Each one represents one test case.
+The first one illustrates how an application is created with five devices as seen in Figure\ref{fig:5_devices}, second with 20 devices in Figure\ref{fig:20_devices} and third with 45 devices in Figure\ref{fig:45_devices}.
+The time that was used to select the command to create the application and then the wanted application was excluded from the time measurements.
 
-Each plot shows the amount of time it has taken to add the devices to the application by executing it in three different ways, manually, using the windowed mode and the headless mode of the implementation.
+Each plot shows the amount of time it took to add the devices to the application by executing it in three different ways, manually, using the windowed mode and the headless mode of the implementation.
 Time is an increasing curve showing the total amount used in the process of adding the devices.
-Three tables are attached to Appendix~\ref{appx:tables}to show the amount of time to create application in the same three methods that are used in the plotting.
+Three tables are attached to Appendix~\ref{appx:tables} to show the amount of time to create the application in the same three methods that were used in the plotting.
 
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
 \begin{axis}[
-    title={Time of adding 5 devices to an application},
+    title={Time of adding five devices to an application},
     xlabel={Device [nth]},
     ylabel={Time [s]},
     xmin=1, xmax=5,
@@ -80,7 +81,8 @@ Three tables are attached to Appendix~\ref{appx:tables}to show the amount of tim
 \end{axis}
 \end{tikzpicture}
 
-    \caption{Plot represents the results of testing the efficiency to add 5 devices to an application with three execution modes: manual, automated windowed mode and automated headless mode. Corresponding table to show data for each coordinate value is found from Table~\ref{tab:5_devices}}\label{fig:5_devices}
+    \caption{The plot represents the results of testing the efficiency to add five devices to an application with three execution modes: manual, automated windowed mode and automated headless mode.
+    The corresponding data values for each coordinate value can be found from Table~\ref{tab:5_devices}}\label{fig:5_devices}
 \end{figure}
 
 \begin{figure}[H]
@@ -183,7 +185,8 @@ Three tables are attached to Appendix~\ref{appx:tables}to show the amount of tim
 \end{axis}
 \end{tikzpicture}
 
-    \caption{Plot represents the results of testing the efficiency to add 20 devices to an application with three execution modes: manual, automated windowed mode and automated headless mode.Corresponding table to show data for each coordinate value is found from Table~\ref{tab:20_devices}}\label{fig:20_devices}
+    \caption{The plot represents the results of testing the efficiency to add 20 devices to an application with three execution modes: manual, automated windowed mode and automated headless mode.
+    The corresponding data values for each coordinate value can be found from Table~\ref{tab:20_devices}}\label{fig:20_devices}
 \end{figure}
 
 \begin{figure}[H]
@@ -359,7 +362,8 @@ Three tables are attached to Appendix~\ref{appx:tables}to show the amount of tim
     \small Plot showing the amount of time to add 45 devices.
 \end{axis}
 \end{tikzpicture}
-    \caption{Plot represents the results of testing the efficiency to add 45 devices to an application with three execution modes: manual, automated windowed mode and automated headless mode.Corresponding table to show data for each coordinate value is found from Table~\ref{tab:45_devices}}\label{fig:45_devices}
+    \caption{The plot represents the results of testing the efficiency to add 45 devices to an application with three execution modes: manual, automated windowed mode and automated headless mode.
+    The corresponding data values for each coordinate value can be found from Table~\ref{tab:45_devices}}\label{fig:45_devices}
 \end{figure}
 
 \clearpage
@@ -367,17 +371,17 @@ Three tables are attached to Appendix~\ref{appx:tables}to show the amount of tim
 \section{Faced difficulties}
 The challenges that were faced during the project consisted of different kind of problems.
 The most common ones would be trying to find errors that were faced during the testing of the features.
-Most difficult ones to spot relating to that turned out to be the ones where syntax errors were occurring in the Robot Framework script, and incorrect amount of whitespace in different keywords.
+The most difficult ones turned out to be syntax errors that occurred in the Robot Framework script, and an incorrect amount of whitespace in different keywords.
 
-The LORIX One gateway also provided some extra obstacles.
-During testing, the web-interface started to refuse the connection and testing needed to be paused.
+The LORIX One gateway also caused some extra obstacles.
+During testing, the web interface started to refuse the connection and testing needed to be paused.
 In the beginning this was handled by rebooting the server and it fixed the problem.
 The reason for this was not found.
 
 Later on there was a new problem, when the feature of deleting a selected device from the decided application was being tested.
-This feature had functioned correctly earlier and no changes were made to the Robot Framework script. 
+This feature had functioned correctly earlier and no changes were made to the Robot Framework script.
 The problem was noticed when the gateway had been rebooted and the testing was continued for that feature.
-The problem was that when a device is being deleted from an application, after clicking the delete button the user is to be expecting a confirmation message.
+The problem was that when a device is being deleted from an application, after clicking the delete button, the user is to be expecting a confirmation message.
 Instead the server showed a pop-up error message on the bottom left page as seen in Figure~\ref{fig:error_when_confirming_device_deleting}.
 
 \begin{figure}[ht]
@@ -387,67 +391,65 @@ Instead the server showed a pop-up error message on the bottom left page as seen
   \label{fig:error_when_confirming_device_deleting}
 \end{figure}
 
-Further investigation through ChirpStack forum resulted to find people with similar problem when using the same gateway \cite{chirpstack_forum:redis_error}.
+Further investigation through the ChirpStack forum resulted in finding people with similar problem when using the same gateway \cite{chirpstack_forum:redis_error}.
 Later on in the discussion, a user proposed a possible solution that can be found in an opened issue on GitHub \cite{github:redis_issue}.
 A collaborator in the GitHub project had made changes to the \path{redis.conf} file in the ChirpStack \gls{os} to fix the issue.
-That same fix was used in this project to outrun the problem and it got solved.
+The same fix was used in this project to outrun the problem and it got solved.
 
-During the last few test runs the connection to the web-interface was corrupted again, the issue being that while the user got logged in, no applications were visible in the server and therefor they were not accessible either.
+During the last few test runs the connection to the web interface was corrupted again, the issue being that while the user got logged in, no applications were visible in the server and therefore they were not accessible either.
 The first hand solution, that worked, was to disconnect the gateway for overnight and turn it on again.
 After that the issue never came back, so there was no further investigation.
 
 Overall these server obstacles slowed down the project implementation with several days.
 Further investigation should be considered if the problems continue.
-This might require to take some actions, like updating the software versions, or even to change the hardware that is used, as most of the challenges were reflected to the use of the LORIX One gateway.
-The consideration should also take in account the load the gateway has been under during the testing.
-The implementation is most likely not used as heavily in such short-term , as it has during the testing phases.
+This might require taking some actions, like updating the software versions, or even changing the hardware that is used, as most of the challenges were related to the use of the LORIX One gateway.
+The load the gateway has been under during testing should also be taken into consideration.
+The implementation is most likely not used as heavily in such short-term as it has been during the testing phases.
 
 
 \section{Maintainability}
  Upon the beginning of the project it was decided that the automation was to be implemented by using Robot Framework.
- The hardware was decided to be the same that Metropolia University of Applied Sciences already use and it was delivered by them.
+ The hardware was decided to be the same that Metropolia University of Applied Sciences already uses and it was delivered by them.
 
-The implementation relies completely on the web-interface of the ChirpStack Application server.
-The variables are created by using the selectors of the elements in the web-interface and they are hard-coded to the variables.py file.
-If any changes to the web-interface is made, it might lead to breaking the Robot Framework script, or at least to a large amount of redefinition of the variables and possibly the keywords as well.
+The implementation relies completely on the web interface of the ChirpStack Application server.
+The variables are created by using the selectors of the elements in the web interface and they are hard-coded to the variables.py file.
+If any changes to the web interface are made, they might lead to breaking the Robot Framework script, or at least to a large amount of redefinition of the variables and possibly the keywords as well.
 
-The LORIX One gateway only supports the ChirpStack up to the version 3, and all the implementation is also based to that version.
-The most latest version of the ChirpStack is currently version 4.
-If the gateway hardware, or the ChirpStack version is to be updated, it might make the implementation incompatible.
+The LORIX One gateway only supports ChirpStack up to version 3, and the entire implementation is based on that version.
+The most latest version of ChirpStack is currently version 4.
+If the gateway hardware, or the ChirpStack version, is to be updated, it might make the implementation incompatible.
 
 \section{Improvement ideas}
 
 The implementation is currently made with the assumption that there is less than 100 applications listed, meaning they would be visible on a single page when the rows per page selection is set to 100.
-And same default base is also used with the devices that are added to a single application.
-If the amount of those applications or devices is greater than 100, the ones that are crossing the limit are shown in the next page,  and therefore aren't processed as part of the list.
-Currently the rows per page amount is set in the suite setup and the selected row amount is automatically set to it in every list type in the web-interface.
+Furthermore the same default base is also used with the devices that are added to a single application.
+If the amount of those applications or devices is greater than 100, the ones that are crossing the limit are shown in the next page,  and therefore they are not processed as part of the list.
+Currently, the number of rows per page is set in the suite setup and the selected amount of rows is automatically set to it in every list type in the web interface.
 This should be changed in the next possible update to make the implementation more reliable.
 
 The running time of the Robot Framework script, when multiple devices are added, could possibly be further reduced by handling all the message pop-ups that the device creation triggers.
-Currently it verifies that there is no message about duplicate device, but on a successful device creation there is a device created message as well. 
-This message leads to extra waiting time as the script recognizes it to one of the pop-ups and starts the timeout which delays the running time.
+Currently the script verifies that there is no message about a duplicate device, but in a successful device creation there is a device created message as well. 
+This message leads to extra waiting time as the script recognizes it as one of the pop-ups and starts the timeout which delays the running time.
 This issue could be solved for example by closing the device created pop-up, whenever it is triggered.
 
-Robocorp announced the joining to Sema4.ai on the end of January \cite{robocorp:sema4.ai}.
-In the following month they published that they are focusing to develop the automation further only in Python language.
+Robocorp announced it would be merging with Sema4.ai at the end of January \cite{robocorp:sema4.ai}.
+In the following month they published that they are focusing on developing the automation further only in the Python language.
 The implementation is currently using the Excel.Files library of RPA Framework to interact with the Excel files, using Robot Framework.
-The new direction Robocorp is taking with the code focused automation means that the existing Robot Framework based libraries are being spared, but no new updates or issue fixes are done in regards to them.
+The new direction Robocorp is taking with the code focused automation means that the existing Robot Framework based libraries are being spared, but no new updates or issue fixes are done.
 In practise this affects the upcoming development, which should be considered if this project is to be further developed.
 
 During the research about the ChirpStack Application server, it was found out that ChirpStack provides \gls{grpc} and \gls{rest}ful APIs \cite{chirpstack:applicationServer}.
-ChirpStack stood down from using \gls{rest} API from the version 4 onwards.
-With this in mind, it should be considered if the script is to be updated, that if it should be implemented by using the API provided with the \gls{grpc} instead of the current automation of the web-interface.
+ChirpStack stopped using \gls{rest} API from version 4 onwards.
+With this in mind, it should be considered if the script is to be updated or if it should be implemented by using the API provided with the \gls{grpc} instead of the current automation of the web interface.
 This would provide a list of more reliable commands to use for handling the tasks in the server.
 
 \clearpage
 
-Using the \gls{grpc} framework requires a decision about what programming language to use with it.
-The \gls{grpc} officially supports 10 different languages, like C++, Python, Java, and Node.js to name a few examples, but there are also some community-based implementations available.
+Using the \gls{grpc} framework requires a decision about what programming language should be used with it.
+\gls{grpc} officially supports 10 different languages, like C++, Python, Java, and Node.js to name a few examples, but there are also some community-based implementations available.
 
 Even if the implementation would start to use \gls{grpc}, Robot Framework can still be the framework to be used.
 Robot Framework supports extending through Python libraries and ChirpStack also supplies a Python \gls{sdk} for the \gls{grpc}.
-With these complabilities in mind, Python could be considered as a strong candidate from the programming language options to use with the \gls{grpc}.
-
-
+With these compabilities in mind, Python could be considered as a strong candidate from the programming language options to use with the \gls{grpc}.
 
 \clearpage %force the next chapter to start on a new page. Keep that as the last line of your chapter!
